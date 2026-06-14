@@ -12,7 +12,6 @@ body {
   display: flex;
   text-wrap: nowrap;
   font: var(--txt-preset-6);
-
   overflow: hidden;
 }
 .live-market__title {
@@ -20,10 +19,19 @@ body {
   background-color: var(--lime-500);
   color: var(--neutral-900);
   text-transform: uppercase;
+  z-index: 1;
 }
 .live-market__rates {
   display: flex;
   background-color: var(--neutral-700);
+}
+.live-market__scroller {
+  display: flex;
+  animation: spin 60s infinite linear;
+}
+@keyframes spin {
+  from {translate: 0;}
+  to {translate: -100%;}
 }
 .live-market__item {
   display: flex;
