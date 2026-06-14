@@ -5,7 +5,7 @@ export default function App() {
   return (
     <>
       <Header />
-      <LiveMarkets />
+      <LiveMarket />
       <Content />
     </>
   );
@@ -15,14 +15,58 @@ function Header() {
   return (
     <header className="header">
       <img src={logo} alt="FX_Checker logo" />
-      <p className="header-info">55 CURRENCIES · EOD · ECB DATA</p>
+      <p className="header__info">55 CURRENCIES · EOD · ECB DATA</p>
     </header>
   )
 }
 
-function LiveMarkets() {
+function LiveMarket() {
   return (
-    <></>
+    <div className="live-market">
+      <p className="live-market__title">&bull; Live markets</p>
+      <div className="live-market__rates">
+        <div className="live-market__item">
+          <p className="live-market__currency">USD/JPY</p>
+          <p className="livemarket__rate">157.91</p>
+          <p className="live-market__change-up">▲ +0.04%</p>
+        </div>
+        <div className="live-market__item">
+          <p className="live-market__currency">GBP/USD</p>
+          <p className="livemarket__rate">1.3575</p>
+          <p className="live-market__change-down">▼ -0.22%</p>
+        </div>
+        <div className="live-market__item">
+          <p className="live-market__currency">USD/JPY</p>
+          <p className="livemarket__rate">157.91</p>
+          <p className="live-market__change-up">▲ +0.04%</p>
+        </div>
+        <div className="live-market__item">
+          <p className="live-market__currency">GBP/USD</p>
+          <p className="livemarket__rate">1.3575</p>
+          <p className="live-market__change-down">▼ -0.22%</p>
+        </div>
+        <div className="live-market__item">
+          <p className="live-market__currency">USD/JPY</p>
+          <p className="livemarket__rate">157.91</p>
+          <p className="live-market__change-up">▲ +0.04%</p>
+        </div>
+        <div className="live-market__item">
+          <p className="live-market__currency">GBP/USD</p>
+          <p className="livemarket__rate">1.3575</p>
+          <p className="live-market__change-down">▼ -0.22%</p>
+        </div>
+        <div className="live-market__item">
+          <p className="live-market__currency">USD/JPY</p>
+          <p className="livemarket__rate">157.91</p>
+          <p className="live-market__change-up">▲ +0.04%</p>
+        </div>
+        <div className="live-market__item">
+          <p className="live-market__currency">GBP/USD</p>
+          <p className="livemarket__rate">1.3575</p>
+          <p className="live-market__change-down">▼ -0.22%</p>
+        </div>
+      </div>
+    </div>
   );
 }
 

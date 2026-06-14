@@ -34,6 +34,7 @@
 body {
   margin: 0;
   font-family: var(--mono);
+  color: var(--neutral-50);
 }
 img {
   display: block;
@@ -41,5 +42,7 @@ img {
 }
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
