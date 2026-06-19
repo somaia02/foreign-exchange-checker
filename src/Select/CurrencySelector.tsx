@@ -1,5 +1,6 @@
 import {Autocomplete, useFilter} from 'react-aria-components/Autocomplete';
 import {Select, SelectValue} from 'react-aria-components/Select';
+import {type SelectProps} from 'react-aria-components';
 import {Header, ListBoxSection} from './ListBox.tsx'
 import {Button} from './Button';
 import {SelectListBox, SelectItem} from './Select';
@@ -8,17 +9,42 @@ import {SearchField} from './SearchField';
 import {ChevronDown} from './icons.tsx';
 
 import './CurrencySelector.css';
-import type { RefObject } from 'react';
+import { useState, type RefObject } from 'react';
+import { useCurrencies } from '../api/useCurrencies.tsx';
+import { flagNames } from '../utils.tsx';
 
 const baseUrl = import.meta.env.BASE_URL;
+const POPULAR = ['USD', 'EUR', 'GBP'];
+type ValueType = SelectProps<any>['value'];
 
 export default function CurrencySelector({triggerRef}: {triggerRef: RefObject<Element | null>}) {
   let {contains} = useFilter({sensitivity: 'base'});
+  const [selectedCurrency, setSelectedCurrency] = useState<ValueType>("usd");
+  const codeString = selectedCurrency?.toString() || "";
+  const data = useCurrencies();
+
+  if (data.loading) return <p>Loading ... </p>;
+  if (data.error !== "") return <p>{data.error}</p>;
+  const currencies = data.data;
+  const popularItems = [];
+  const otherItems = [];
+  for (let i = 0; i < currencies!.length; i++) {
+    const code = currencies![i].iso_code;
+    const item = <CurrencyOption key={code} code={code} name={currencies![i].name} />;
+    if (POPULAR.includes(code)) {
+      popularItems.push(item);
+    } else {
+      otherItems.push(item);
+    }
+  }
 
   return (
-    <Select aria-label='Select currency' value="usd">
+    <Select aria-label='Select currency' value={selectedCurrency} onChange={(val: ValueType) => setSelectedCurrency(val)}>
       <Button>
-        <SelectValue className="select-value"/>
+        <SelectValue className="select-value">
+          <FlagIcon code={codeString} />
+          <span className="currency-symbol">{codeString}</span>
+        </SelectValue>
         <ChevronDown />
       </Button>
       <Popover hideArrow triggerRef={triggerRef}>
@@ -28,64 +54,40 @@ export default function CurrencySelector({triggerRef}: {triggerRef: RefObject<El
             <ListBoxSection>
               <Header className='currency-section-header'>
                 <span className='header-name'>Popular</span>
-                <span className='header-count'>3</span>
+                <span className='header-count'>{popularItems.length}</span>
               </Header>
-              <SelectItem id='usd' textValue='USD: US Dollar'>
-                <img src={`${baseUrl}/flags/us.webp`} alt="" width="20" height="20" className='currency-icon' />
-                <span className="currency-symbol">USD</span>
-                <span className="currency-name">US Dollar</span>
-              </SelectItem>
-              <SelectItem id='eur' textValue='EUR: Euro'>
-                <img src={`${baseUrl}/flags/eu.webp`} alt="" width="20" height="20" className='currency-icon' />
-                <span className="currency-symbol">EUR</span>
-                <span className="currency-name">Euro</span>
-              </SelectItem>
-              <SelectItem id='gbp' textValue='GBP: British pound'>
-                <img src={`${baseUrl}/flags/gb.webp`} alt="" width="20" height="20" className='currency-icon' />
-                <span className="currency-symbol">GBP</span>
-                <span className="currency-name">British pound</span>
-              </SelectItem>
+              {popularItems}
             </ListBoxSection>
 
             <ListBoxSection>
               <Header className='currency-section-header'>
                 <span className='header-name'>Other Currencies</span>
-                <span className='header-count'>52</span>
+                <span className='header-count'>{otherItems.length}</span>
               </Header>
-              <SelectItem id='aed' textValue='AED: UAE dirham'>
-                <img src={`${baseUrl}/flags/ae.webp`} alt="" width="20" height="20" className='currency-icon' />
-                <span className="currency-symbol">AED</span>
-                <span className="currency-name">UAE dirham</span>
-              </SelectItem>
-              <SelectItem id='ars' textValue='ARS: Argentine Peso'>
-                <img src={`${baseUrl}/flags/ar.webp`} alt="" width="20" height="20" className='currency-icon' />
-                <span className="currency-symbol">ARS</span>
-                <span className="currency-name">Argentine Peso</span>
-              </SelectItem>
-              <SelectItem id='aud' textValue='AUD: Australian Dollar'>
-                <img src={`${baseUrl}/flags/au.webp`} alt="" width="20" height="20" className='currency-icon' />
-                <span className="currency-symbol">AUD</span>
-                <span className="currency-name">Australian Dollar</span>
-              </SelectItem>
-              <SelectItem id='bdt' textValue='BDT: Bangladeshi Taka'>
-                <img src={`${baseUrl}/flags/bd.webp`} alt="" width="20" height="20" className='currency-icon' />
-                <span className="currency-symbol">BDT</span>
-                <span className="currency-name">Bangladeshi Taka</span>
-              </SelectItem>
-              <SelectItem id='bgn' textValue='BGN: Bulgarian Lev'>
-                <img src={`${baseUrl}/flags/bg.webp`} alt="" width="20" height="20" className='currency-icon' />
-                <span className="currency-symbol">BGN</span>
-                <span className="currency-name">Bulgarian Lev</span>
-              </SelectItem>
-              <SelectItem id='bhd' textValue='BHD: Bahraini Dinar'>
-                <span className="currency-icon globe-icon">&#127760;</span>
-                <span className="currency-symbol">BHD</span>
-                <span className="currency-name">Bahraini Dinar</span>
-              </SelectItem>
+              {otherItems}
             </ListBoxSection>
           </SelectListBox>
         </Autocomplete>
       </Popover>
     </Select>
   );
+}
+
+function CurrencyOption({ code, name }: { code: string, name: string}) {
+  const textValue = `${code}: ${name}`;
+
+  return (
+    <SelectItem id={code.toLocaleLowerCase()} textValue={textValue}>
+      <FlagIcon code={code} />
+      <span className="currency-symbol">{code}</span>
+      <span className="currency-name">{name}</span>
+    </SelectItem>
+  );
+}
+
+function FlagIcon({ code }: {code: string}) {
+  const icon = flagNames.includes(code.toLowerCase().slice(0, 2)) ?
+  <img src={`${baseUrl}/flags/${code.toLowerCase().slice(0, 2)}.webp`} alt="" width="20" height="20" className='currency-icon' /> :
+  <span className="currency-icon globe-icon">&#127760;</span>;
+  return icon;
 }

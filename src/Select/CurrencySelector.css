@@ -19,4 +19,5 @@
 }
 .currency-symbol {
   color: var(--neutral-50);
+  text-transform: uppercase;
 }
