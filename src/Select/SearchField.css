@@ -32,7 +32,12 @@
     border: none;
     outline: none;
     padding: 0;
-    font: inherit;
+    color: var(--neutral-50);
+
+    &::placeholder {
+      font: var(--txt-preset-5);
+      letter-spacing: 0.5px;
+    }
 
     &:focus {
       border: none;
