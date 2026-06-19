@@ -54,7 +54,7 @@ body {
 }
 .calculator-item__input {
   border: none;
-  color: var(--neutral-50);
+  color: inherit;
   font: var(--txt-preset-1-tablet);
   background: transparent;
   field-sizing: content;
@@ -62,9 +62,8 @@ body {
     outline: none;
   }
 }
-.calculator-item__output {
+.lime {
   color: var(--lime-500);
-  font: var(--txt-preset-1-tablet);
 }
 .calculator-item__options {
   display: flex;
