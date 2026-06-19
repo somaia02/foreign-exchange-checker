@@ -40,7 +40,7 @@ function Converter() {
         <CalculatorItem title="Send">
           <input name="conversion-value" type="text" value="1,000" className="calculator-item__input"/>
         </CalculatorItem>
-        <button type="submit" className="calculator__btn">
+        <button type="button" className="calculator__btn" aria-label="Swap currencies">
           <img src={convertIcon} alt="Up and down exchange arrows" />
         </button>
         <CalculatorItem title="Receive">
