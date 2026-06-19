@@ -1,0 +1,14 @@
+.react-aria-Button {
+  background-color: var(--neutral-500);
+  border: var(--neutral-400) solid 1px;
+  border-radius: 8px;
+  padding: 0.625rem;
+
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+
+  font: var(--txt-preset-4);
+  letter-spacing: 1px;
+  color: var(--neutral-50);
+}

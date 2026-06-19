@@ -1,0 +1,19 @@
+@import './theme.css';
+
+.react-aria-Select {
+  color: var(--text-color);
+  position: relative;
+
+  .react-aria-SelectValue {
+    flex: 1;
+    text-align: start;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &[data-placeholder] {
+      color: var(--text-color-placeholder);
+      font-weight: normal;
+    }
+  }
+}

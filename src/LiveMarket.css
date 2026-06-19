@@ -1,0 +1,40 @@
+.live-market {
+  display: flex;
+  text-wrap: nowrap;
+  font: var(--txt-preset-6);
+  overflow: hidden;
+}
+.live-market__title {
+  padding: 0.75rem 0.5rem;
+  background-color: var(--lime-500);
+  color: var(--neutral-900);
+  text-transform: uppercase;
+  z-index: 1;
+}
+.live-market__rates {
+  display: flex;
+  background-color: var(--neutral-700);
+}
+.live-market__scroller {
+  display: flex;
+  animation: spin 60s infinite linear;
+}
+@keyframes spin {
+  from {translate: 0;}
+  to {translate: -100%;}
+}
+.live-market__item {
+  display: flex;
+  gap: 0.625rem;
+  padding: 0.75rem;
+  border-right: var(--neutral-500) solid 1px;
+}
+.live-market__currency {
+  color: var(--neutral-200)
+}
+.live-market__change-up {
+  color: var(--green-500);
+}
+.live-market__change-down {
+  color: var(--red-500);
+}

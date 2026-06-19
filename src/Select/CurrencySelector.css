@@ -1,0 +1,22 @@
+.select-value {
+  display: contents;
+}
+.currency-section-header {
+  display: flex;
+  justify-content: space-between;
+
+  padding: 0.5rem;
+  text-transform: uppercase;
+  border-block-end: var(--neutral-500) solid 1px;
+  background-color: var(--neutral-600);
+  
+  position: sticky;
+  top: 0px;
+  z-index: 1;  
+}
+.currency-icon {
+  border-radius: 50%;
+}
+.currency-symbol {
+  color: var(--neutral-50);
+}

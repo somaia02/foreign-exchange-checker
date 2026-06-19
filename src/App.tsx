@@ -1,5 +1,9 @@
 import logo from "./assets/images/logo.svg";
+import convertIcon from "./assets/images/icon-exchange-vertical.svg"
+import LiveMarket from "./LiveMarket.tsx";
+import CurrencySelector from "./Select/CurrencySelector.tsx";
 import './App.css'
+import { useRef, type ReactElement } from "react";
 
 export default function App() {
   return (
@@ -20,102 +24,43 @@ function Header() {
   )
 }
 
-function LiveMarket() {
+function Content() {
   return (
-    <div className="live-market">
-      <p className="live-market__title">&bull; Live markets</p>
-      <div className="live-market__rates">
-        <div className="live-market__scroller">
-          <div className="live-market__item">
-            <p className="live-market__currency">1.USD/JPY</p>
-            <p className="livemarket__rate">157.91</p>
-            <p className="live-market__change-up">▲ +0.04%</p>
-          </div>
-          <div className="live-market__item">
-            <p className="live-market__currency">GBP/USD</p>
-            <p className="livemarket__rate">1.3575</p>
-            <p className="live-market__change-down">▼ -0.22%</p>
-          </div>
-          <div className="live-market__item">
-            <p className="live-market__currency">USD/JPY</p>
-            <p className="livemarket__rate">157.91</p>
-            <p className="live-market__change-up">▲ +0.04%</p>
-          </div>
-          <div className="live-market__item">
-            <p className="live-market__currency">GBP/USD</p>
-            <p className="livemarket__rate">1.3575</p>
-            <p className="live-market__change-down">▼ -0.22%</p>
-          </div>
-          <div className="live-market__item">
-            <p className="live-market__currency">USD/JPY</p>
-            <p className="livemarket__rate">157.91</p>
-            <p className="live-market__change-up">▲ +0.04%</p>
-          </div>
-          <div className="live-market__item">
-            <p className="live-market__currency">GBP/USD</p>
-            <p className="livemarket__rate">1.3575</p>
-            <p className="live-market__change-down">▼ -0.22%</p>
-          </div>
-          <div className="live-market__item">
-            <p className="live-market__currency">USD/JPY</p>
-            <p className="livemarket__rate">157.91</p>
-            <p className="live-market__change-up">▲ +0.04%</p>
-          </div>
-          <div className="live-market__item">
-            <p className="live-market__currency">GBP/USD</p>
-            <p className="livemarket__rate">1.3575</p>
-            <p className="live-market__change-down">▼ -0.22%</p>
-          </div>
-        </div>
-        <div className="live-market__scroller">
-          <div className="live-market__item">
-            <p className="live-market__currency">1.USD/JPY</p>
-            <p className="livemarket__rate">157.91</p>
-            <p className="live-market__change-up">▲ +0.04%</p>
-          </div>
-          <div className="live-market__item">
-            <p className="live-market__currency">GBP/USD</p>
-            <p className="livemarket__rate">1.3575</p>
-            <p className="live-market__change-down">▼ -0.22%</p>
-          </div>
-          <div className="live-market__item">
-            <p className="live-market__currency">USD/JPY</p>
-            <p className="livemarket__rate">157.91</p>
-            <p className="live-market__change-up">▲ +0.04%</p>
-          </div>
-          <div className="live-market__item">
-            <p className="live-market__currency">GBP/USD</p>
-            <p className="livemarket__rate">1.3575</p>
-            <p className="live-market__change-down">▼ -0.22%</p>
-          </div>
-          <div className="live-market__item">
-            <p className="live-market__currency">USD/JPY</p>
-            <p className="livemarket__rate">157.91</p>
-            <p className="live-market__change-up">▲ +0.04%</p>
-          </div>
-          <div className="live-market__item">
-            <p className="live-market__currency">GBP/USD</p>
-            <p className="livemarket__rate">1.3575</p>
-            <p className="live-market__change-down">▼ -0.22%</p>
-          </div>
-          <div className="live-market__item">
-            <p className="live-market__currency">USD/JPY</p>
-            <p className="livemarket__rate">157.91</p>
-            <p className="live-market__change-up">▲ +0.04%</p>
-          </div>
-          <div className="live-market__item">
-            <p className="live-market__currency">GBP/USD</p>
-            <p className="livemarket__rate">1.3575</p>
-            <p className="live-market__change-down">▼ -0.22%</p>
-          </div>
-        </div>
-      </div>
+    <div className="content">
+      <Converter />
     </div>
   );
 }
 
-function Content() {
+function Converter() {
   return (
-    <></>
+    <div className="converter">
+      <h1 className="converter__title">Check the rate</h1>
+      <form className="calculator">
+        <CalculatorItem title="Send">
+          <input name="conversion-value" type="text" value="1,000" className="calculator-item__input"/>
+        </CalculatorItem>
+        <button type="submit" className="calculator__btn">
+          <img src={convertIcon} alt="Up and down exchange arrows" />
+        </button>
+        <CalculatorItem title="Receive">
+          <p className="calculator-item__output">1,000</p>
+        </CalculatorItem>
+      </form>
+      <div className="converter__footer"></div>
+    </div>
+  );
+}
+
+function CalculatorItem({ children, title }: { children: ReactElement, title: string }) {
+  let triggerRef = useRef(null);
+  return (
+    <div className="calculator-item" ref={triggerRef}>
+      <p className="calculator-item__title">{title}</p>
+      <div className="calculator-item__options">
+        {children}
+        <CurrencySelector triggerRef={triggerRef}/>
+      </div>
+    </div>
   );
 }
