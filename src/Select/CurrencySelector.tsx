@@ -78,7 +78,7 @@ export default function CurrencySelector({triggerRef}: {triggerRef: RefObject<El
                 <span className="currency-name">Bulgarian Lev</span>
               </SelectItem>
               <SelectItem id='bhd' textValue='BHD: Bahraini Dinar'>
-                <img src={`${baseUrl}/flags/bh.webp`} alt="" width="20" height="20" className='currency-icon' />
+                <span className="currency-icon globe-icon">&#127760;</span>
                 <span className="currency-symbol">BHD</span>
                 <span className="currency-name">Bahraini Dinar</span>
               </SelectItem>

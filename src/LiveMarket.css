@@ -17,7 +17,7 @@
 }
 .live-market__scroller {
   display: flex;
-  animation: spin 60s infinite linear;
+  animation: spin 600s infinite linear;
 }
 @keyframes spin {
   from {translate: 0;}
