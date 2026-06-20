@@ -1,6 +1,6 @@
 import {Autocomplete, useFilter} from 'react-aria-components/Autocomplete';
 import {Select, SelectValue} from 'react-aria-components/Select';
-import {type SelectProps} from 'react-aria-components';
+import {type Key} from 'react-aria-components';
 import {Header, ListBoxSection} from './ListBox.tsx'
 import {Button} from './Button';
 import {SelectListBox, SelectItem} from './Select';
@@ -15,11 +15,11 @@ import { flagNames } from '../utils.tsx';
 
 const baseUrl = import.meta.env.BASE_URL;
 const POPULAR = ['USD', 'EUR', 'GBP'];
-type ValueType = SelectProps<any>['value'];
+
 
 export default function CurrencySelector({triggerRef}: {triggerRef: RefObject<Element | null>}) {
   let {contains} = useFilter({sensitivity: 'base'});
-  const [selectedCurrency, setSelectedCurrency] = useState<ValueType>("usd");
+  const [selectedCurrency, setSelectedCurrency] = useState<Key | null>("usd");
   const codeString = selectedCurrency?.toString() || "";
   const data = useCurrencies();
 
@@ -39,7 +39,7 @@ export default function CurrencySelector({triggerRef}: {triggerRef: RefObject<El
   }
 
   return (
-    <Select aria-label='Select currency' value={selectedCurrency} onChange={(val: ValueType) => setSelectedCurrency(val)}>
+    <Select aria-label='Select currency' value={selectedCurrency} onChange={(val: Key | null) => setSelectedCurrency(val)}>
       <Button>
         <SelectValue className="select-value">
           <FlagIcon code={codeString} />
