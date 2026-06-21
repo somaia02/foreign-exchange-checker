@@ -35,7 +35,6 @@ export default function Converter() {
     const currReceiveCurrency = receiveCurrency;
     setSendCurrency(currReceiveCurrency);
     setReceiveCurrency(currSendCurrency);
-    setSendValue(receiveValue);
   }
 
   return (
