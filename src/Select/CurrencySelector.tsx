@@ -9,27 +9,33 @@ import {SearchField} from './SearchField';
 import {ChevronDown} from './icons.tsx';
 
 import './CurrencySelector.css';
-import { useState, type RefObject } from 'react';
+import { type RefObject } from 'react';
 import { useCurrencies } from '../api/useCurrencies.tsx';
 import { flagNames } from '../utils.tsx';
 
 const baseUrl = import.meta.env.BASE_URL;
 const POPULAR = ['USD', 'EUR', 'GBP'];
 
+interface CurrencySelectorProps {
+  triggerRef: RefObject<Element | null>,
+  value: Key | null,
+  onChange: (c: Key | null) => void
+  disabled?: string[]
+}
 
-export default function CurrencySelector({triggerRef}: {triggerRef: RefObject<Element | null>}) {
+export default function CurrencySelector({triggerRef, value, onChange, disabled=[]}: CurrencySelectorProps) {
   let {contains} = useFilter({sensitivity: 'base'});
-  const [selectedCurrency, setSelectedCurrency] = useState<Key | null>("usd");
-  const codeString = selectedCurrency?.toString() || "";
   const data = useCurrencies();
-
   if (data.loading) return <p>Loading ... </p>;
   if (data.error !== "") return <p>{data.error}</p>;
+  
   const currencies = data.data;
+  const codeString = String(value);
   const popularItems = [];
   const otherItems = [];
   for (let i = 0; i < currencies!.length; i++) {
     const code = currencies![i].iso_code;
+    if (disabled.includes(code.toLowerCase())) continue;
     const item = <CurrencyOption key={code} code={code} name={currencies![i].name} />;
     if (POPULAR.includes(code)) {
       popularItems.push(item);
@@ -39,11 +45,11 @@ export default function CurrencySelector({triggerRef}: {triggerRef: RefObject<El
   }
 
   return (
-    <Select aria-label='Select currency' value={selectedCurrency} onChange={(val: Key | null) => setSelectedCurrency(val)}>
+    <Select aria-label='Select currency' value={value} onChange={onChange}>
       <Button>
-        <SelectValue className="select-value">
+        <SelectValue className="currency-selector__select-value">
           <FlagIcon code={codeString} />
-          <span className="currency-symbol">{codeString}</span>
+          <span className="currency-selector__currency-symbol">{codeString}</span>
         </SelectValue>
         <ChevronDown />
       </Button>
@@ -52,17 +58,17 @@ export default function CurrencySelector({triggerRef}: {triggerRef: RefObject<El
           <SearchField aria-label="Search currencies" placeholder="Search currencies..." autoFocus />
           <SelectListBox>
             <ListBoxSection>
-              <Header className='currency-section-header'>
-                <span className='header-name'>Popular</span>
-                <span className='header-count'>{popularItems.length}</span>
+              <Header className='currency-selector__section-header'>
+                <span>Popular</span>
+                <span>{popularItems.length}</span>
               </Header>
               {popularItems}
             </ListBoxSection>
 
             <ListBoxSection>
               <Header className='currency-section-header'>
-                <span className='header-name'>Other Currencies</span>
-                <span className='header-count'>{otherItems.length}</span>
+                <span>Other Currencies</span>
+                <span>{otherItems.length}</span>
               </Header>
               {otherItems}
             </ListBoxSection>

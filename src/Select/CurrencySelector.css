@@ -1,7 +1,7 @@
-.select-value {
+.currency-selector__select-value {
   display: contents;
 }
-.currency-section-header {
+.currency-selector__section-header {
   display: flex;
   justify-content: space-between;
 
@@ -14,10 +14,7 @@
   top: 0px;
   z-index: 1;  
 }
-.currency-icon {
-  border-radius: 50%;
-}
-.currency-symbol {
+.currency-selector__currency-symbol {
   color: var(--neutral-50);
   text-transform: uppercase;
 }

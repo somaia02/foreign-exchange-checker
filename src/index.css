@@ -46,3 +46,8 @@ img {
   padding: 0;
 }
 
+/* Utils */
+.currency-icon {
+  border-radius: 50%;
+}
+
