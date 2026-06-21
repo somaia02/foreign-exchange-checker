@@ -3,8 +3,8 @@ import './LiveMarket.css';
 
 export default function LiveMarket() {
   const data = useRates();
-  if (data.loading) return <p>Loading ... </p>;
   if (data.error !== "") return <p>{data.error}</p>;
+  if (data.loading) return <p>Loading ... </p>;
   const [latestRates, prevRates] = data.data;
   const items = [];
   for (let i = 0; i < latestRates!.length; i++) {

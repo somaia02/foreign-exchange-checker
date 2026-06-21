@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { getErrorMessage } from '../utils';
 
 interface DataItem {
     date: string,
@@ -13,7 +12,8 @@ const BASE = "EGP";
 export function useRates() {
   const [rates, setRates] = useState<DataItem[] | null>(null);
   const [prevRates, setPrevRates] = useState<DataItem[] | null>(null);
-  const data = {data: [rates, prevRates], error: "", loading: !Boolean(rates && prevRates)};
+  const [error, setError] = useState("");
+  const data = {data: [rates, prevRates], error: error, loading: !Boolean(rates && prevRates)};
   const url = `https://api.frankfurter.dev/v2/rates?base=${BASE}`;
   useEffect(() => {
     const controller = new AbortController();
@@ -21,7 +21,8 @@ export function useRates() {
       const response = await fetch(url, {signal: controller.signal});
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message);
+        setError(errorData.message);
+        return;
       }
       const json = await response.json();
       setRates(json);
@@ -29,17 +30,15 @@ export function useRates() {
       const prevDataResponse = await fetch(`${url}&date=${date}`, {signal: controller.signal});
       if (!prevDataResponse.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message);
+        setError(errorData.message);
+        return;
       }
       const prevDataJson = await prevDataResponse.json();
       setPrevRates(prevDataJson);
 
     }
-    try {
-      fetchData();
-    } catch(error) {
-      data.error = getErrorMessage(error) ;
-    }
+    fetchData();
+    
     return (() => {
       controller.abort();
     });

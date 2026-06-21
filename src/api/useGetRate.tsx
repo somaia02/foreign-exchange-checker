@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { getErrorMessage } from '../utils';
 
 export function useGetRate(base: string, quote: string) {
   const [rate, setRate] = useState<number | null>(null);
@@ -18,11 +17,8 @@ export function useGetRate(base: string, quote: string) {
       const json = await response.json();
       setRate(json.rate);
     }
-    try {
-      fetchData();
-    } catch(error) {
-      setError(getErrorMessage(error));
-    }
+    fetchData();
+    
     return (() => {
       controller.abort();
     });

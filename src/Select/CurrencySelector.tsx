@@ -25,10 +25,10 @@ interface CurrencySelectorProps {
 export default function CurrencySelector({triggerRef, value, onChange, disabled=[]}: CurrencySelectorProps) {
   let {contains} = useFilter({sensitivity: 'base'});
   const data = useCurrencies();
-  if (data.loading) return <p>Loading ... </p>;
   if (data.error !== "") return <p>{data.error}</p>;
+  if (data.loading) return <p>Loading ... </p>;
   
-  const currencies = data.data;
+  const currencies = data.currencies;
   const codeString = String(value);
   const popularItems = [];
   const otherItems = [];

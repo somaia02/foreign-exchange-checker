@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { getErrorMessage } from '../utils';
 
 interface Currency {
   iso_code: string,
@@ -12,7 +11,8 @@ interface Currency {
 
 export function useCurrencies() {
   const [currencies, setCurrencies] = useState<Currency[] | null>(null);
-  const data = {data: currencies, error: "", loading: !Boolean(currencies)};
+  const [error, setError] = useState("");
+  const data = {currencies: currencies, error: error, loading: !Boolean(currencies)};
   useEffect(() => {
     const controller = new AbortController();
     async function fetchData() {
@@ -22,16 +22,14 @@ export function useCurrencies() {
       );
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message);
+        setError(errorData.message);
+        return;
       }
       const json = await response.json();
       setCurrencies(json);
     }
-    try {
-      fetchData();
-    } catch(error) {
-      data.error = getErrorMessage(error) ;
-    }
+    fetchData();
+    
     return (() => {
       controller.abort();
     });
