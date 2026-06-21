@@ -46,7 +46,8 @@ export default function Converter() {
                         currency={sendCurrency}
                         value={sendValue}
                         onCurrencyChange={setSendCurrency}
-                        onValueChange={handleSendValueChange}>
+                        onValueChange={handleSendValueChange}
+                        disabled={[String(receiveCurrency)]}>
         </CalculatorItem>
         <button type="button"
                 className="calculator__btn"

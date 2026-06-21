@@ -7,11 +7,10 @@ import {SelectListBox, SelectItem} from './Select';
 import {Popover} from './Popover';
 import {SearchField} from './SearchField';
 import {ChevronDown} from './icons.tsx';
-
-import './CurrencySelector.css';
 import { type RefObject } from 'react';
 import { useCurrencies } from '../api/useCurrencies.tsx';
 import { flagNames } from '../utils.tsx';
+import './CurrencySelector.css';
 
 const baseUrl = import.meta.env.BASE_URL;
 const POPULAR = ['USD', 'EUR', 'GBP'];
@@ -66,7 +65,7 @@ export default function CurrencySelector({triggerRef, value, onChange, disabled=
             </ListBoxSection>
 
             <ListBoxSection>
-              <Header className='currency-section-header'>
+              <Header className='currency-selector__section-header'>
                 <span>Other Currencies</span>
                 <span>{otherItems.length}</span>
               </Header>
@@ -85,8 +84,8 @@ function CurrencyOption({ code, name }: { code: string, name: string}) {
   return (
     <SelectItem id={code.toLocaleLowerCase()} textValue={textValue}>
       <FlagIcon code={code} />
-      <span className="currency-symbol">{code}</span>
-      <span className="currency-name">{name}</span>
+      <span className="currency-selector__currency-symbol ">{code}</span>
+      <span className="currency-selector__currency-name">{name}</span>
     </SelectItem>
   );
 }
