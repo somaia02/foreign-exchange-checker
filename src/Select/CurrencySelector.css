@@ -9,10 +9,10 @@
   text-transform: uppercase;
   border-block-end: var(--neutral-500) solid 1px;
   background-color: var(--neutral-600);
-  
+
   position: sticky;
   top: 0px;
-  z-index: 1;  
+  z-index: 1;
 }
 .currency-selector__currency-symbol {
   color: var(--neutral-50);

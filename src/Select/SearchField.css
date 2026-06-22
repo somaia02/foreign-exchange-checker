@@ -1,9 +1,9 @@
-@import './theme.css';
-@import './TextField.css';
+@import "./theme.css";
+@import "./TextField.css";
 
 .react-aria-SearchField {
   display: grid;
-  grid-template-areas: 'icon input';
+  grid-template-areas: "icon input";
   grid-template-columns: auto 1fr;
   align-items: center;
   width: auto;
@@ -19,7 +19,7 @@
     z-index: 2;
   }
 
-  &[data-disabled] .search-icon{
+  &[data-disabled] .search-icon {
     color: var(--text-color-disabled);
   }
 

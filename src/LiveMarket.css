@@ -20,8 +20,12 @@
   animation: spin 600s infinite linear;
 }
 @keyframes spin {
-  from {translate: 0;}
-  to {translate: -100%;}
+  from {
+    translate: 0;
+  }
+  to {
+    translate: -100%;
+  }
 }
 .live-market__item {
   display: flex;
@@ -30,7 +34,7 @@
   border-right: var(--neutral-500) solid 1px;
 }
 .live-market__currency {
-  color: var(--neutral-200)
+  color: var(--neutral-200);
 }
 .live-market__change-up {
   color: var(--green-500);

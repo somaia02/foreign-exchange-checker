@@ -1,4 +1,4 @@
-@import './theme.css';
+@import "./theme.css";
 
 .react-aria-ListBox {
   max-height: inherit;
@@ -63,7 +63,7 @@
 
   --border-color: var(--gray-300);
   &:not(:last-child)::after {
-    content: '';
+    content: "";
     display: block;
     position: absolute;
   }
@@ -99,11 +99,11 @@
     }
   }
 
-  [slot='label'] {
+  [slot="label"] {
     font-weight: 500;
   }
 
-  [slot='description'] {
+  [slot="description"] {
     font-size: var(--font-size-sm);
   }
 
@@ -128,10 +128,10 @@
 }
 
 .react-aria-ListBox {
-  &[data-layout='stack'] {
+  &[data-layout="stack"] {
     display: flex;
 
-    &[data-orientation='vertical'] {
+    &[data-orientation="vertical"] {
       flex-direction: column;
       width: 250px;
       max-height: 300px;
@@ -148,7 +148,7 @@
           margin-bottom: var(--spacing);
         }
 
-        [role='presentation'] > & {
+        [role="presentation"] > & {
           margin: 0; /* virtualizer */
         }
 
@@ -174,7 +174,7 @@
       }
     }
 
-    &[data-orientation='horizontal'] {
+    &[data-orientation="horizontal"] {
       flex-direction: row;
       width: 100%;
 
@@ -213,18 +213,18 @@
     }
   }
 
-  &[data-layout='grid'] {
+  &[data-layout="grid"] {
     display: grid;
     gap: var(--spacing-1);
     width: fit-content;
     max-width: 100%;
     padding: var(--spacing-1);
 
-    &[data-orientation='vertical'] {
+    &[data-orientation="vertical"] {
       grid-template-columns: 1fr 1fr;
     }
 
-    &[data-orientation='horizontal'] {
+    &[data-orientation="horizontal"] {
       grid-auto-flow: column;
       grid-template-rows: auto auto;
       grid-template-columns: none;
@@ -249,7 +249,7 @@
   forced-color-adjust: none;
   outline: none;
   box-sizing: border-box;
-  
+
   &[data-empty] {
     min-height: var(--spacing-8);
     padding: var(--spacing-2);
@@ -286,11 +286,11 @@
     color: var(--highlight-foreground);
   }
 
-  [slot='label'] {
+  [slot="label"] {
     font-weight: 500;
   }
 
-  [slot='description'] {
+  [slot="description"] {
     font-size: var(--font-size-sm);
   }
 

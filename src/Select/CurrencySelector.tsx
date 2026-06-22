@@ -1,33 +1,38 @@
-import {Autocomplete, useFilter} from 'react-aria-components/Autocomplete';
-import {Select, SelectValue} from 'react-aria-components/Select';
-import {type Key} from 'react-aria-components';
-import {Header, ListBoxSection} from './ListBox.tsx'
-import {Button} from './Button';
-import {SelectListBox, SelectItem} from './Select';
-import {Popover} from './Popover';
-import {SearchField} from './SearchField';
-import {ChevronDown} from './icons.tsx';
-import { type RefObject } from 'react';
-import { useCurrencies } from '../api/useCurrencies.tsx';
-import { flagNames } from '../utils.tsx';
-import './CurrencySelector.css';
+import { Autocomplete, useFilter } from "react-aria-components/Autocomplete";
+import { Select, SelectValue } from "react-aria-components/Select";
+import { type Key } from "react-aria-components";
+import { Header, ListBoxSection } from "./ListBox.tsx";
+import { Button } from "./Button";
+import { SelectListBox, SelectItem } from "./Select";
+import { Popover } from "./Popover";
+import { SearchField } from "./SearchField";
+import { ChevronDown } from "./icons.tsx";
+import { type RefObject } from "react";
+import { useCurrencies } from "../api/useCurrencies.tsx";
+import { flagNames } from "../utils.tsx";
+import "./CurrencySelector.css";
 
 const baseUrl = import.meta.env.BASE_URL;
-const POPULAR = ['USD', 'EUR', 'GBP'];
+const POPULAR = ["USD", "EUR", "GBP"];
 
 interface CurrencySelectorProps {
-  triggerRef: RefObject<Element | null>,
-  value: Key | null,
-  onChange: (c: Key | null) => void
-  disabled?: string[]
+  triggerRef: RefObject<Element | null>;
+  value: Key | null;
+  onChange: (c: Key | null) => void;
+  disabled?: string[];
 }
 
-export default function CurrencySelector({triggerRef, value, onChange, disabled=[]}: CurrencySelectorProps) {
-  let {contains} = useFilter({sensitivity: 'base'});
+export default function CurrencySelector({
+  triggerRef,
+  value,
+  onChange,
+  disabled = [],
+}: CurrencySelectorProps) {
+  const { contains } = useFilter({ sensitivity: "base" });
   const data = useCurrencies();
   if (data.error !== "") return <p>{data.error}</p>;
   if (data.loading) return <p>Loading ... </p>;
-  
+
   const currencies = data.currencies;
   const codeString = String(value);
   const popularItems = [];
@@ -35,7 +40,9 @@ export default function CurrencySelector({triggerRef, value, onChange, disabled=
   for (let i = 0; i < currencies!.length; i++) {
     const code = currencies![i].iso_code;
     if (disabled.includes(code.toLowerCase())) continue;
-    const item = <CurrencyOption key={code} code={code} name={currencies![i].name} />;
+    const item = (
+      <CurrencyOption key={code} code={code} name={currencies![i].name} />
+    );
     if (POPULAR.includes(code)) {
       popularItems.push(item);
     } else {
@@ -44,20 +51,26 @@ export default function CurrencySelector({triggerRef, value, onChange, disabled=
   }
 
   return (
-    <Select aria-label='Select currency' value={value} onChange={onChange}>
+    <Select aria-label="Select currency" value={value} onChange={onChange}>
       <Button>
         <SelectValue className="currency-selector__select-value">
           <FlagIcon code={codeString} />
-          <span className="currency-selector__currency-symbol">{codeString}</span>
+          <span className="currency-selector__currency-symbol">
+            {codeString}
+          </span>
         </SelectValue>
         <ChevronDown />
       </Button>
       <Popover hideArrow triggerRef={triggerRef}>
-        <Autocomplete filter={contains} >
-          <SearchField aria-label="Search currencies" placeholder="Search currencies..." autoFocus />
+        <Autocomplete filter={contains}>
+          <SearchField
+            aria-label="Search currencies"
+            placeholder="Search currencies..."
+            autoFocus
+          />
           <SelectListBox>
             <ListBoxSection>
-              <Header className='currency-selector__section-header'>
+              <Header className="currency-selector__section-header">
                 <span>Popular</span>
                 <span>{popularItems.length}</span>
               </Header>
@@ -65,7 +78,7 @@ export default function CurrencySelector({triggerRef, value, onChange, disabled=
             </ListBoxSection>
 
             <ListBoxSection>
-              <Header className='currency-selector__section-header'>
+              <Header className="currency-selector__section-header">
                 <span>Other Currencies</span>
                 <span>{otherItems.length}</span>
               </Header>
@@ -78,7 +91,7 @@ export default function CurrencySelector({triggerRef, value, onChange, disabled=
   );
 }
 
-function CurrencyOption({ code, name }: { code: string, name: string}) {
+function CurrencyOption({ code, name }: { code: string; name: string }) {
   const textValue = `${code}: ${name}`;
 
   return (
@@ -90,9 +103,17 @@ function CurrencyOption({ code, name }: { code: string, name: string}) {
   );
 }
 
-function FlagIcon({ code }: {code: string}) {
-  const icon = flagNames.includes(code.toLowerCase().slice(0, 2)) ?
-  <img src={`${baseUrl}/flags/${code.toLowerCase().slice(0, 2)}.webp`} alt="" width="20" height="20" className='currency-icon' /> :
-  <span className="currency-icon globe-icon">&#127760;</span>;
+function FlagIcon({ code }: { code: string }) {
+  const icon = flagNames.includes(code.toLowerCase().slice(0, 2)) ? (
+    <img
+      src={`${baseUrl}/flags/${code.toLowerCase().slice(0, 2)}.webp`}
+      alt=""
+      width="20"
+      height="20"
+      className="currency-icon"
+    />
+  ) : (
+    <span className="currency-icon globe-icon">&#127760;</span>
+  );
   return icon;
 }

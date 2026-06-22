@@ -1,13 +1,13 @@
-'use client';
+"use client";
 import {
   Input,
   SearchField as AriaSearchField,
   type SearchFieldProps as AriaSearchFieldProps,
-  type ValidationResult
-} from 'react-aria-components/SearchField';
-import {Label, FieldError, Description} from './Form';
-import {Search} from './icons.tsx';
-import './SearchField.css';
+  type ValidationResult,
+} from "react-aria-components/SearchField";
+import { Label, FieldError, Description } from "./Form";
+import { Search } from "./icons.tsx";
+import "./SearchField.css";
 
 export interface SearchFieldProps extends AriaSearchFieldProps {
   label?: string;

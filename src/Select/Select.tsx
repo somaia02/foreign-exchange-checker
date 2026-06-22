@@ -1,22 +1,22 @@
-'use client';
+"use client";
 import {
   type ListBoxItemProps,
   Select as AriaSelect,
   type SelectProps as AriaSelectProps,
   SelectValue,
   type ValidationResult,
-  type ListBoxProps
-} from 'react-aria-components/Select';
-import {Button} from './Button';
-import {DropdownItem, DropdownListBox} from './ListBox';
-import {ChevronDown} from './icons.tsx';
-import {Popover} from './Popover';
-import {Label, FieldError, Description} from './Form';
-import './Select.css';
+  type ListBoxProps,
+} from "react-aria-components/Select";
+import { Button } from "./Button";
+import { DropdownItem, DropdownListBox } from "./ListBox";
+import { ChevronDown } from "./icons.tsx";
+import { Popover } from "./Popover";
+import { Label, FieldError, Description } from "./Form";
+import "./Select.css";
 
-export interface SelectProps<T, M extends 'single' | 'multiple'> extends Omit<
+export interface SelectProps<T, M extends "single" | "multiple"> extends Omit<
   AriaSelectProps<T, M>,
-  'children'
+  "children"
 > {
   label?: string;
   description?: string;
@@ -25,7 +25,7 @@ export interface SelectProps<T, M extends 'single' | 'multiple'> extends Omit<
   children: React.ReactNode | ((item: T) => React.ReactNode);
 }
 
-export function Select<T, M extends 'single' | 'multiple' = 'single'>({
+export function Select<T, M extends "single" | "multiple" = "single">({
   label,
   description,
   errorMessage,

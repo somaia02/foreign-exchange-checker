@@ -1,7 +1,7 @@
 import logo from "./assets/images/logo.svg";
 import LiveMarket from "./LiveMarket.tsx";
 import Converter from "./Converter.tsx";
-import './App.css'
+import "./App.css";
 
 export default function App() {
   return (
@@ -19,7 +19,7 @@ function Header() {
       <img src={logo} alt="FX_Checker logo" />
       <p className="header__info">55 CURRENCIES · EOD · ECB DATA</p>
     </header>
-  )
+  );
 }
 
 function Content() {
