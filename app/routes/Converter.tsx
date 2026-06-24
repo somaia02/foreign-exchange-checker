@@ -1,4 +1,4 @@
-import convertIcon from "./assets/images/icon-exchange-vertical.svg";
+import convertIcon from "../assets/images/icon-exchange-vertical.svg";
 import CurrencySelector from "./Select/CurrencySelector.tsx";
 import { type Key } from "react-aria-components";
 import { useRef, useState } from "react";

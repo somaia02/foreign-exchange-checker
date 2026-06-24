@@ -1,7 +1,7 @@
-import logo from "./assets/images/logo.svg";
+import logo from "../assets/images/logo.svg";
 import LiveMarket from "./LiveMarket.tsx";
 import Converter from "./Converter.tsx";
-import "./App.css";
+import "./home.css";
 
 export default function App() {
   return (
