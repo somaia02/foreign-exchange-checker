@@ -106,7 +106,7 @@ function CurrencyOption({ code, name }: { code: string; name: string }) {
 function FlagIcon({ code }: { code: string }) {
   const icon = flagNames.includes(code.toLowerCase().slice(0, 2)) ? (
     <img
-      src={`${baseUrl}/flags/${code.toLowerCase().slice(0, 2)}.webp`}
+      src={`${baseUrl}flags/${code.toLowerCase().slice(0, 2)}.webp`}
       alt=""
       width="20"
       height="20"
