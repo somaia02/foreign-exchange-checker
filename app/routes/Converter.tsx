@@ -2,28 +2,31 @@ import convertIcon from "../assets/images/icon-exchange-vertical.svg";
 import CurrencySelector from "./Select/CurrencySelector.tsx";
 import { type Key } from "react-aria-components";
 import { useRef, useState } from "react";
-import { useGetRate } from "./api/useGetRate.tsx";
+import { usePairRate } from "./api/usePairRate.ts";
 import "./Converter.css";
 
 interface CalculatorItemProps {
   title: string;
   currency: Key | null;
-  value: number | null;
+  value: string | number;
   onCurrencyChange: (c: Key | null) => void;
   onValueChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   disabled?: string[];
 }
 
 export default function Converter() {
-  const [sendValue, setSendValue] = useState<number | null>(null);
+  const [sendValue, setSendValue] = useState<"" | number>("");
   const [sendCurrency, setSendCurrency] = useState<Key | null>("usd");
   const [receiveCurrency, setReceiveCurrency] = useState<Key | null>("eur");
-  const data = useGetRate(String(sendCurrency), String(receiveCurrency));
-  if (data.error !== "") return <p>{data.error}</p>;
-  if (data.loading) return <p>Loading ... </p>;
-  const receiveValue = sendValue
-    ? Number((sendValue * data.rate!).toFixed(2))
-    : null;
+  const data = usePairRate(String(sendCurrency), String(receiveCurrency));
+  let receiveValue: string | number = "";
+  if (data.error !== "") {
+    receiveValue = data.error;
+  } else if (sendValue && data.loading) {
+    receiveValue = "...";
+  } else if (sendValue) {
+    receiveValue = Number((sendValue * data.rate!).toFixed(2));
+  }
 
   function handleSendValueChange(e: React.ChangeEvent<HTMLInputElement>) {
     setSendValue(Number(e.target.value));
@@ -89,7 +92,7 @@ function CalculatorItem({
         <input
           placeholder="0"
           type="text"
-          value={value || undefined}
+          value={value}
           className={`calculator-item__input ${color}`}
           onChange={onValueChange}
         />

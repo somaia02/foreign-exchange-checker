@@ -1,11 +1,8 @@
-import { useRates } from "./api/useRates";
+import { useLoaderData } from "react-router";
 import "./LiveMarket.css";
 
 export default function LiveMarket() {
-  const data = useRates();
-  if (data.error !== "") return <p>{data.error}</p>;
-  if (data.loading) return <p>Loading ... </p>;
-  const [latestRates, prevRates] = data.data;
+  const { latestRates, prevRates } = useLoaderData();
   const items = [];
   for (let i = 0; i < latestRates!.length; i++) {
     const currData = latestRates![i];

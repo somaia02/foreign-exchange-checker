@@ -1,7 +1,14 @@
 import logo from "../assets/images/logo.svg";
 import LiveMarket from "./LiveMarket.tsx";
 import Converter from "./Converter.tsx";
+import { fetchCurrencies, fetchAllRates } from "./api/api.ts";
 import "./home.css";
+
+export async function loader() {
+  const currencies = await fetchCurrencies();
+  const [latestRates, prevRates] = await fetchAllRates();
+  return { currencies, latestRates, prevRates };
+}
 
 export default function App() {
   return (

@@ -8,8 +8,8 @@ import { Popover } from "./Popover";
 import { SearchField } from "./SearchField";
 import { ChevronDown } from "./icons.tsx";
 import { type RefObject } from "react";
-import { useCurrencies } from "../api/useCurrencies.tsx";
 import { flagNames } from "../utils.tsx";
+import { useLoaderData } from "react-router";
 import "./CurrencySelector.css";
 
 const baseUrl = import.meta.env.BASE_URL;
@@ -29,10 +29,7 @@ export default function CurrencySelector({
   disabled = [],
 }: CurrencySelectorProps) {
   const { contains } = useFilter({ sensitivity: "base" });
-  const data = useCurrencies();
-  if (data.error !== "") return <p>{data.error}</p>;
-  if (data.loading) return <p>Loading ... </p>;
-
+  const data = useLoaderData();
   const currencies = data.currencies;
   const codeString = String(value);
   const popularItems = [];
