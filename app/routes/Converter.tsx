@@ -1,4 +1,5 @@
 import convertIcon from "../assets/images/icon-exchange-vertical.svg";
+import { StarFilledIcon } from "./icons.tsx";
 import CurrencySelector from "./Select/CurrencySelector.tsx";
 import { type Key } from "react-aria-components";
 import { useRef, useState } from "react";
@@ -20,19 +21,25 @@ export default function Converter() {
   const [receiveCurrency, setReceiveCurrency] = useState<Key | null>("eur");
   const data = usePairRate(String(sendCurrency), String(receiveCurrency));
   let receiveValue: string | number = "";
+  let converterInfo;
   if (data.error !== "") {
-    receiveValue = data.error;
-  } else if (sendValue && data.loading) {
-    receiveValue = "...";
-  } else if (sendValue) {
-    receiveValue = Number((sendValue * data.rate!).toFixed(2));
+    converterInfo = data.error;
+  } else if (data.loading) {
+    converterInfo = "Loading rate ...";
+  } else {
+    receiveValue = sendValue ? Number((sendValue * data.rate!).toFixed(2)) : "";
+    converterInfo = `1 ${sendCurrency} = ${data.rate!} ${receiveCurrency}`;
   }
 
   function handleSendValueChange(e: React.ChangeEvent<HTMLInputElement>) {
     setSendValue(Number(e.target.value));
   }
   function handleReceiveValueChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setSendValue(Number((Number(e.target.value) / data.rate!).toFixed(2)));
+    if (data.rate) {
+      setSendValue(Number((Number(e.target.value) / data.rate).toFixed(2)));
+    } else {
+      setSendValue("");
+    }
   }
   function handleClick() {
     const currSendCurrency = sendCurrency;
@@ -70,7 +77,18 @@ export default function Converter() {
           disabled={[String(sendCurrency)]}
         ></CalculatorItem>
       </div>
-      <div className="converter__footer"></div>
+      <div className="converter__footer">
+        <p className="converter__info">{converterInfo}</p>
+        <div className="converter__actions">
+          <button type="button" className="converter__fav-btn">
+            <StarFilledIcon />
+            <span>Favorited</span>
+          </button>
+          <button type="button" className="converter__log-btn">
+            Log conversion
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
