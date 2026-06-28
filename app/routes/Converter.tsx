@@ -1,6 +1,6 @@
 import convertIcon from "../assets/images/icon-exchange-vertical.svg";
-import { StarFilledIcon } from "./icons.tsx";
 import CurrencySelector from "./Select/CurrencySelector.tsx";
+import ConverterFooter from "./ConverterFooter.tsx";
 import { type Key } from "react-aria-components";
 import { useRef, useState } from "react";
 import { usePairRate } from "./api/usePairRate.ts";
@@ -41,7 +41,7 @@ export default function Converter() {
       setSendValue("");
     }
   }
-  function handleClick() {
+  function handleSwapClick() {
     const currSendCurrency = sendCurrency;
     const currReceiveCurrency = receiveCurrency;
     setSendCurrency(currReceiveCurrency);
@@ -64,7 +64,7 @@ export default function Converter() {
           type="button"
           className="calculator__btn"
           aria-label="Swap currencies"
-          onClick={handleClick}
+          onClick={handleSwapClick}
         >
           <img src={convertIcon} alt="Up and down exchange arrows" />
         </button>
@@ -77,18 +77,13 @@ export default function Converter() {
           disabled={[String(sendCurrency)]}
         ></CalculatorItem>
       </div>
-      <div className="converter__footer">
-        <p className="converter__info">{converterInfo}</p>
-        <div className="converter__actions">
-          <button type="button" className="converter__fav-btn">
-            <StarFilledIcon />
-            <span>Favorited</span>
-          </button>
-          <button type="button" className="converter__log-btn">
-            Log conversion
-          </button>
-        </div>
-      </div>
+      <ConverterFooter
+        info={converterInfo}
+        sendCurrency={sendCurrency}
+        receiveCurrency={receiveCurrency}
+        sendValue={sendValue}
+        receiveValue={receiveValue}
+      />
     </div>
   );
 }
