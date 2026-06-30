@@ -262,8 +262,9 @@
   }
 
   &[data-focused] {
-    background: var(--highlight-background);
-    color: var(--highlight-foreground);
+    border: var(--neutral-200) solid 1px;
+    border-radius: 4px;
+    outline: none;
   }
 
   [slot="label"] {

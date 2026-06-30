@@ -1,0 +1,50 @@
+.details {
+  display: grid;
+  gap: 1rem;
+}
+.details__tab-selector .react-aria-Button {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: var(--neutral-400) solid 1px;
+  border-radius: 8px;
+  background-color: var(--neutral-700);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font: var(--txt-preset-3);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--neutral-50);
+  .react-aria-SelectValue {
+    display: flex;
+    gap: 0.5rem;
+  }
+}
+.details__tab-selector-popover {
+  width: var(--trigger-width);
+  padding: 0.5rem;
+  border: var(--neutral-600) solid 1px;
+  border-radius: 10px;
+  background-color: var(--neutral-700);
+}
+.details__tab {
+  padding: 0.625rem 0.5rem;
+  font: var(--txt-preset-3);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: space-between;
+}
+.details__count {
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 50%;
+  font: var(--txt-preset-6);
+  color: var(--lime-500);
+  background-color: var(--lime-800);
+
+  display: grid;
+  place-content: center;
+}

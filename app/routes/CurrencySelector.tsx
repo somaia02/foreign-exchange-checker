@@ -6,7 +6,7 @@ import { Button } from "./Select/Button.tsx";
 import { SelectListBox, SelectItem } from "./Select/Select.tsx";
 import { Popover } from "./Select/Popover.tsx";
 import { SearchField } from "./Select/SearchField.tsx";
-import { ChevronDown, Check } from "./Select/icons.tsx";
+import { ChevronDown, Check } from "./icons.tsx";
 import { type RefObject } from "react";
 import { flagNames } from "./utils.tsx";
 import { useLoaderData } from "react-router";

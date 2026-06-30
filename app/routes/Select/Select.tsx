@@ -8,7 +8,7 @@ import {
 } from "react-aria-components/Select";
 import { Button } from "./Button";
 import { DropdownItem, DropdownListBox } from "./ListBox";
-import { ChevronDown } from "./icons.tsx";
+import { DownArrow } from "../icons.tsx";
 import { Popover } from "./Popover";
 import "./Select.css";
 
@@ -29,9 +29,9 @@ export function Select<T, M extends "single" | "multiple" = "single">({
     <AriaSelect {...props}>
       <Button>
         <SelectValue />
-        <ChevronDown />
+        <DownArrow />
       </Button>
-      <Popover className="select-popover">
+      <Popover className={`${props.className}-popover`}>
         <SelectListBox items={items}>{children}</SelectListBox>
       </Popover>
     </AriaSelect>

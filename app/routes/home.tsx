@@ -5,6 +5,7 @@ import { saved } from "./cookies.ts";
 import logo from "../assets/images/logo.svg";
 import LiveMarket from "./LiveMarket.tsx";
 import Converter from "./Converter.tsx";
+import Details from "./Details.tsx";
 import { fetchCurrencies, fetchAllRates } from "./api/api.ts";
 import "./home.css";
 
@@ -66,6 +67,7 @@ function Content() {
   return (
     <div className="content">
       <Converter />
+      <Details />
     </div>
   );
 }
