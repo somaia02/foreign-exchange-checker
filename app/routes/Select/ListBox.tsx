@@ -11,7 +11,7 @@ import {
   type ListBoxSectionProps,
 } from "react-aria-components/ListBox";
 import { composeRenderProps } from "react-aria-components/composeRenderProps";
-import { Check } from "./icons.tsx";
+import clsx from "clsx";
 import { Text } from "./Content";
 import { ProgressCircle } from "./ProgressCircle";
 import "./ListBox.css";
@@ -58,15 +58,18 @@ export function DropdownItem(props: ListBoxItemProps) {
     props.textValue ||
     (typeof props.children === "string" ? props.children : undefined);
   return (
-    <ListBoxItem {...props} textValue={textValue} className="dropdown-item">
-      {composeRenderProps(props.children, (children, { isSelected }) => (
+    <ListBoxItem
+      {...props}
+      textValue={textValue}
+      className={clsx("dropdown-item", props.className)}
+    >
+      {composeRenderProps(props.children, (children) => (
         <>
           {typeof children === "string" ? (
             <Text slot="label">{children}</Text>
           ) : (
             children
           )}
-          {isSelected && <Check />}
         </>
       ))}
     </ListBoxItem>

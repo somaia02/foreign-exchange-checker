@@ -1,19 +1,19 @@
 import { Autocomplete, useFilter } from "react-aria-components/Autocomplete";
 import { Select, SelectValue } from "react-aria-components/Select";
 import { type Key } from "react-aria-components";
-import { Header, ListBoxSection } from "./ListBox.tsx";
-import { Button } from "./Button";
-import { SelectListBox, SelectItem } from "./Select";
-import { Popover } from "./Popover";
-import { SearchField } from "./SearchField";
-import { ChevronDown } from "./icons.tsx";
+import { Header, ListBoxSection } from "./Select/ListBox.tsx";
+import { Button } from "./Select/Button.tsx";
+import { SelectListBox, SelectItem } from "./Select/Select.tsx";
+import { Popover } from "./Select/Popover.tsx";
+import { SearchField } from "./Select/SearchField.tsx";
+import { ChevronDown, Check } from "./Select/icons.tsx";
 import { type RefObject } from "react";
-import { flagNames } from "../utils.tsx";
+import { flagNames } from "./utils.tsx";
 import { useLoaderData } from "react-router";
 import "./CurrencySelector.css";
 
 const baseUrl = import.meta.env.BASE_URL;
-const POPULAR = ["USD", "EUR", "GBP"];
+const POPULAR = ["usd", "eur", "gbp"];
 
 interface CurrencySelectorProps {
   triggerRef: RefObject<Element | null>;
@@ -35,10 +35,16 @@ export default function CurrencySelector({
   const popularItems = [];
   const otherItems = [];
   for (let i = 0; i < currencies!.length; i++) {
-    const code = currencies![i].iso_code;
-    if (disabled.includes(code.toLowerCase())) continue;
+    const code = currencies![i].iso_code.toLowerCase();
+    const isSelected = code === codeString;
+    if (disabled.includes(code)) continue;
     const item = (
-      <CurrencyOption key={code} code={code} name={currencies![i].name} />
+      <CurrencyOption
+        key={code}
+        code={code}
+        name={currencies![i].name}
+        isSelected={isSelected}
+      />
     );
     if (POPULAR.includes(code)) {
       popularItems.push(item);
@@ -48,7 +54,12 @@ export default function CurrencySelector({
   }
 
   return (
-    <Select aria-label="Select currency" value={value} onChange={onChange}>
+    <Select
+      aria-label="Select currency"
+      value={value}
+      onChange={onChange}
+      className="currency-selector"
+    >
       <Button>
         <SelectValue className="currency-selector__select-value">
           <FlagIcon code={codeString} />
@@ -58,7 +69,7 @@ export default function CurrencySelector({
         </SelectValue>
         <ChevronDown />
       </Button>
-      <Popover hideArrow triggerRef={triggerRef}>
+      <Popover triggerRef={triggerRef} className="currency-selector__popover">
         <Autocomplete filter={contains}>
           <SearchField
             aria-label="Search currencies"
@@ -88,22 +99,35 @@ export default function CurrencySelector({
   );
 }
 
-function CurrencyOption({ code, name }: { code: string; name: string }) {
-  const textValue = `${code}: ${name}`;
+function CurrencyOption({
+  code,
+  name,
+  isSelected = false,
+}: {
+  code: string;
+  name: string;
+  isSelected?: boolean;
+}) {
+  const textValue = `${code.toUpperCase()}: ${name}`;
 
   return (
-    <SelectItem id={code.toLocaleLowerCase()} textValue={textValue}>
+    <SelectItem
+      id={code}
+      textValue={textValue}
+      className="currency-selector__currency-item"
+    >
       <FlagIcon code={code} />
       <span className="currency-selector__currency-symbol ">{code}</span>
       <span className="currency-selector__currency-name">{name}</span>
+      {isSelected && <Check />}
     </SelectItem>
   );
 }
 
 function FlagIcon({ code }: { code: string }) {
-  const icon = flagNames.includes(code.toLowerCase().slice(0, 2)) ? (
+  const icon = flagNames.includes(code.slice(0, 2)) ? (
     <img
-      src={`${baseUrl}flags/${code.toLowerCase().slice(0, 2)}.webp`}
+      src={`${baseUrl}flags/${code.slice(0, 2)}.webp`}
       alt=""
       width="20"
       height="20"

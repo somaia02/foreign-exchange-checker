@@ -1,7 +1,7 @@
 @import "./theme.css";
 
 .react-aria-Popover {
-  background-color: var(--neutral-600);
+  /* background-color: var(--neutral-600);
   border: var(--neutral-400) solid 1px;
   border-radius: 8px;
   padding: 0.5rem;
@@ -13,72 +13,21 @@
   color: var(--neutral-200);
 
   display: flex;
-  flex-direction: column;
-
-  transition:
-    transform 200ms,
-    opacity 200ms;
-
-  &[data-trigger="MenuTrigger"],
-  &[data-trigger="SubmenuTrigger"] {
-    padding: 0;
-  }
-
-  .react-aria-OverlayArrow svg {
-    display: block;
-    fill: var(--background-color);
-    stroke: var(--overlay-border);
-    paint-order: stroke;
-    stroke-width: 2px;
-  }
-
-  &[data-entering],
-  &[data-exiting] {
-    transform: var(--origin);
-    opacity: 0;
-  }
+  flex-direction: column; */
 
   &[data-placement="top"] {
     --origin: translateY(8px);
-
-    &:has(.react-aria-OverlayArrow) {
-      margin-bottom: 6px;
-    }
   }
 
   &[data-placement="bottom"] {
     --origin: translateY(-8px);
-
-    &:has(.react-aria-OverlayArrow) {
-      margin-top: 6px;
-    }
-
-    .react-aria-OverlayArrow svg {
-      transform: rotate(180deg);
-    }
   }
 
   &[data-placement="right"] {
     --origin: translateX(-8px);
-
-    &:has(.react-aria-OverlayArrow) {
-      margin-left: 6px;
-    }
-
-    .react-aria-OverlayArrow svg {
-      transform: rotate(90deg);
-    }
   }
 
   &[data-placement="left"] {
     --origin: translateX(8px);
-
-    &:has(.react-aria-OverlayArrow) {
-      margin-right: 6px;
-    }
-
-    .react-aria-OverlayArrow svg {
-      transform: rotate(-90deg);
-    }
   }
 }

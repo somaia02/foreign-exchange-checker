@@ -1,0 +1,70 @@
+.currency-selector .react-aria-Button {
+  background-color: var(--neutral-500);
+  border: var(--neutral-400) solid 1px;
+  border-radius: 8px;
+  padding: 0.625rem;
+
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+
+  font: var(--txt-preset-4);
+  letter-spacing: 1px;
+  color: var(--neutral-50);
+}
+.currency-selector__select-value {
+  display: contents;
+}
+.currency-selector__popover {
+  background-color: var(--neutral-600);
+  border: var(--neutral-400) solid 1px;
+  border-radius: 8px;
+  padding: 0.5rem;
+  width: var(--trigger-width);
+  max-width: 376px;
+
+  font: var(--txt-preset-5);
+  letter-spacing: 0.5px;
+  color: var(--neutral-200);
+
+  display: flex;
+  flex-direction: column;
+}
+.currency-selector__section-header {
+  display: flex;
+  justify-content: space-between;
+
+  padding: 0.5rem;
+  text-transform: uppercase;
+  border-block-end: var(--neutral-500) solid 1px;
+  background-color: var(--neutral-600);
+
+  position: sticky;
+  top: 0px;
+  z-index: 1;
+}
+.currency-selector__currency-symbol {
+  color: var(--neutral-50);
+  text-transform: uppercase;
+}
+.currency-selector__currency-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0.5rem;
+  .currency-icon {
+    width: 20px;
+    height: 20px;
+  }
+  .globe-icon {
+    font-size: 1.25rem;
+    margin-inline-start: -3px;
+    line-height: 100%;
+  }
+
+  &[data-selected] {
+    .check-icon {
+      margin-inline-start: auto;
+    }
+  }
+}

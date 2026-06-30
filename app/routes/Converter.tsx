@@ -1,5 +1,5 @@
 import convertIcon from "../assets/images/icon-exchange-vertical.svg";
-import CurrencySelector from "./Select/CurrencySelector.tsx";
+import CurrencySelector from "./CurrencySelector.tsx";
 import ConverterFooter from "./ConverterFooter.tsx";
 import { type Key } from "react-aria-components";
 import { useRef, useState } from "react";
