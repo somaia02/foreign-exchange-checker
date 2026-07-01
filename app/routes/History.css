@@ -1,0 +1,21 @@
+.timeframe-selector {
+  padding: 0.125rem;
+  border-radius: 8px;
+  background-color: var(--neutral-700);
+  color: var(--neutral-200);
+  width: fit-content;
+  display: flex;
+  margin-block-start: 1.25rem;
+}
+.timeframe-selector__tab {
+  padding: 0.75rem 1rem;
+  text-transform: uppercase;
+  font: var(--txt-preset-5);
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  &[data-selected] {
+    background-color: var(--neutral-500);
+    border-radius: 8px;
+    color: var(--neutral-50);
+  }
+}
