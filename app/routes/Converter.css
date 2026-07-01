@@ -48,9 +48,6 @@
     outline: none;
   }
 }
-.lime {
-  color: var(--lime-500);
-}
 .calculator-item__options {
   display: flex;
   justify-content: space-between;

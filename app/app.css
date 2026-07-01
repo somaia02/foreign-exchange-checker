@@ -50,3 +50,15 @@ img {
 .currency-icon {
   border-radius: 50%;
 }
+.color-lime {
+  color: var(--lime-500);
+}
+.color-green {
+  color: var(--green-500);
+}
+.color-white {
+  color: var(--neutral-50);
+}
+.color-red {
+  color: var(--red-500);
+}

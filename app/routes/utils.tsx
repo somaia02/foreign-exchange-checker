@@ -1,6 +1,10 @@
-export function getErrorMessage(error: unknown) {
-  if (error instanceof Error) return error.message;
-  return `Something went wrong. ${String(error)}`;
+export function getError(error: unknown, key: "message" | "name") {
+  if (error instanceof Error) return error[key];
+  return String(error);
+}
+export function getErrorName(error: unknown) {
+  if (error instanceof Error) return error.name;
+  return "";
 }
 
 export const flagNames = [

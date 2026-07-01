@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { getErrorMessage } from "../utils";
+import { getError } from "../utils";
 
-export function usePairRate(base: string, quote: string) {
+export function usePairRate(base: string, quote: string, date: string = "") {
   const [rate, setRate] = useState<number | null>(null);
   const [error, setError] = useState("");
   const data = { rate: rate, error: error, loading: !rate };
@@ -9,7 +9,8 @@ export function usePairRate(base: string, quote: string) {
     const controller = new AbortController();
     async function fetchData() {
       try {
-        const url = `https://api.frankfurter.dev/v2/rate/${base}/${quote}`;
+        const dateQuery = date ? `?date=${date}` : "";
+        const url = `https://api.frankfurter.dev/v2/rate/${base}/${quote}${dateQuery}`;
         const response = await fetch(url, { signal: controller.signal });
         if (!response.ok) {
           const errorData = await response.json();
@@ -18,7 +19,11 @@ export function usePairRate(base: string, quote: string) {
         const json = await response.json();
         setRate(json.rate);
       } catch (e) {
-        setError(getErrorMessage(e));
+        if (getError(e, "name") === "AbortError") {
+          console.log("Fetch successfully aborted, ignoring error.");
+          return;
+        }
+        setError(getError(e, "message"));
       }
     }
     fetchData();
@@ -26,6 +31,6 @@ export function usePairRate(base: string, quote: string) {
     return () => {
       controller.abort();
     };
-  }, [base, quote]);
+  }, [base, quote, date]);
   return data;
 }

@@ -2,8 +2,9 @@ import convertIcon from "../assets/images/icon-exchange-vertical.svg";
 import CurrencySelector from "./CurrencySelector.tsx";
 import ConverterFooter from "./ConverterFooter.tsx";
 import { type Key } from "react-aria-components";
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { usePairRate } from "./api/usePairRate.ts";
+import { CurrencyContext } from "./CurrencyContext.ts";
 import "./Converter.css";
 
 interface CalculatorItemProps {
@@ -16,9 +17,11 @@ interface CalculatorItemProps {
 }
 
 export default function Converter() {
+  const currenciesInfo = useContext(CurrencyContext);
+  if (currenciesInfo == null) return <p>Null context</p>;
+  const { sendCurrency, receiveCurrency, setSendCurrency, setReceiveCurrency } =
+    currenciesInfo;
   const [sendValue, setSendValue] = useState<"" | number>("");
-  const [sendCurrency, setSendCurrency] = useState<Key | null>("usd");
-  const [receiveCurrency, setReceiveCurrency] = useState<Key | null>("eur");
   const data = usePairRate(String(sendCurrency), String(receiveCurrency));
   let receiveValue: string | number = "";
   let converterInfo;
@@ -30,7 +33,6 @@ export default function Converter() {
     receiveValue = sendValue ? Number((sendValue * data.rate!).toFixed(2)) : "";
     converterInfo = `1 ${sendCurrency} = ${data.rate!} ${receiveCurrency}`;
   }
-
   function handleSendValueChange(e: React.ChangeEvent<HTMLInputElement>) {
     setSendValue(Number(e.target.value));
   }
@@ -106,7 +108,7 @@ function CalculatorItem({
           placeholder="0"
           type="text"
           value={value}
-          className={`calculator-item__input ${color}`}
+          className={`calculator-item__input color-${color}`}
           onChange={onValueChange}
         />
         <CurrencySelector

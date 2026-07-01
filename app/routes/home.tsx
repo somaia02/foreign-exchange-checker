@@ -1,5 +1,7 @@
 import { data } from "react-router";
+import { useState } from "react";
 import type { Route } from "./+types/home.ts";
+import { type Key } from "react-aria-components";
 
 import { saved } from "./cookies.ts";
 import logo from "../assets/images/logo.svg";
@@ -7,6 +9,7 @@ import LiveMarket from "./LiveMarket.tsx";
 import Converter from "./Converter.tsx";
 import Details from "./Details.tsx";
 import { fetchCurrencies, fetchAllRates } from "./api/api.ts";
+import { CurrencyContext } from "./CurrencyContext.ts";
 import "./home.css";
 
 export async function loader({ request }: Route.LoaderArgs) {
@@ -45,12 +48,20 @@ export async function action({ request }: Route.ActionArgs) {
 }
 
 export default function App() {
+  const [sendCurrency, setSendCurrency] = useState<Key | null>("usd");
+  const [receiveCurrency, setReceiveCurrency] = useState<Key | null>("eur");
+  const currencies = {
+    sendCurrency,
+    setSendCurrency,
+    receiveCurrency,
+    setReceiveCurrency,
+  };
   return (
-    <>
+    <CurrencyContext value={currencies}>
       <Header />
       <LiveMarket />
       <Content />
-    </>
+    </CurrencyContext>
   );
 }
 
