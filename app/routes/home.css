@@ -7,6 +7,8 @@ body {
   padding: 1rem;
   font: var(--txt-preset-6);
   color: var(--neutral-200);
+  text-align: center;
+  gap: 0.5rem;
 }
 .content {
   padding: 2rem 1rem;

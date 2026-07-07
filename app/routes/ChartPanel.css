@@ -1,0 +1,11 @@
+.chart-panel {
+  padding: 1rem 0.75rem;
+  background-color: var(--neutral-700);
+  border: var(--neutral-600) solid 1px;
+  border-radius: 16px;
+}
+.loading-chart {
+  height: 298px;
+  place-content: center;
+  place-items: center;
+}

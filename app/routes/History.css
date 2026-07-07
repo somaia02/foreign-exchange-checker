@@ -1,3 +1,7 @@
+.rate-chart {
+  display: grid;
+  gap: 1.5rem;
+}
 .timeframe-selector {
   padding: 0.125rem;
   border-radius: 8px;

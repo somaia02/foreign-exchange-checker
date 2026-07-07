@@ -1,0 +1,12 @@
+.chart {
+  width: 100%;
+  font: var(--txt-preset-6);
+  color: var(--neutral-200);
+}
+.domain,
+.tick line {
+  display: none;
+}
+.chart__line {
+  color: var(--lime-500);
+}
