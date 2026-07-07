@@ -4,8 +4,3 @@
   border: var(--neutral-600) solid 1px;
   border-radius: 16px;
 }
-.loading-chart {
-  height: 298px;
-  place-content: center;
-  place-items: center;
-}

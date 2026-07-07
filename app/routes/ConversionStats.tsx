@@ -7,18 +7,18 @@ export default function ConversionStats() {
   const currenciesInfo = useContext(CurrencyContext);
   if (currenciesInfo == null) return <p>Null context</p>;
   const { sendCurrency, receiveCurrency } = currenciesInfo;
-  const lastRateData = usePairRate(
-    String(sendCurrency),
-    String(receiveCurrency),
-  );
+  const lastRateData = usePairRate({
+    base: String(sendCurrency),
+    quote: String(receiveCurrency),
+  });
   const prevDate = new Date();
   prevDate.setDate(prevDate.getDate() - 1);
   const prevDateStr = prevDate.toISOString().split("T")[0];
-  const openRateData = usePairRate(
-    String(sendCurrency),
-    String(receiveCurrency),
-    prevDateStr,
-  );
+  const openRateData = usePairRate({
+    base: String(sendCurrency),
+    quote: String(receiveCurrency),
+    date: prevDateStr,
+  });
   if (lastRateData.error != "" || openRateData.error != "") {
     return (
       <>
@@ -29,8 +29,8 @@ export default function ConversionStats() {
   } else if (lastRateData.loading || openRateData.loading) {
     return <p>Loading ...</p>;
   }
-  const lastRate = lastRateData.rate!;
-  const openRate = openRateData.rate!;
+  const lastRate = lastRateData.rates![0];
+  const openRate = openRateData.rates![0];
   const change = lastRate - openRate;
   const changePercent = (100 * change) / openRate;
   const changeValue =

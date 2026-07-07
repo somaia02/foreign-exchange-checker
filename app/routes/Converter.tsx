@@ -22,7 +22,10 @@ export default function Converter() {
   const { sendCurrency, receiveCurrency, setSendCurrency, setReceiveCurrency } =
     currenciesInfo;
   const [sendValue, setSendValue] = useState<"" | number>("");
-  const data = usePairRate(String(sendCurrency), String(receiveCurrency));
+  const data = usePairRate({
+    base: String(sendCurrency),
+    quote: String(receiveCurrency),
+  });
   let receiveValue: string | number = "";
   let converterInfo;
   if (data.error !== "") {
@@ -30,15 +33,19 @@ export default function Converter() {
   } else if (data.loading) {
     converterInfo = "Loading rate ...";
   } else {
-    receiveValue = sendValue ? Number((sendValue * data.rate!).toFixed(2)) : "";
-    converterInfo = `1 ${sendCurrency} = ${data.rate!} ${receiveCurrency}`;
+    receiveValue = sendValue
+      ? Number((sendValue * data.rates![0]).toFixed(2))
+      : "";
+    converterInfo = `1 ${sendCurrency} = ${data.rates![0]} ${receiveCurrency}`;
   }
   function handleSendValueChange(e: React.ChangeEvent<HTMLInputElement>) {
     setSendValue(Number(e.target.value));
   }
   function handleReceiveValueChange(e: React.ChangeEvent<HTMLInputElement>) {
-    if (data.rate) {
-      setSendValue(Number((Number(e.target.value) / data.rate).toFixed(2)));
+    if (data.rates![0]) {
+      setSendValue(
+        Number((Number(e.target.value) / data.rates![0]).toFixed(2)),
+      );
     } else {
       setSendValue("");
     }
