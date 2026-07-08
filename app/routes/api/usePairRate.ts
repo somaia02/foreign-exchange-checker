@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { getError } from "../utils";
+import { CurrencyContext } from "../CurrencyContext";
 
 interface dataItem {
   date: string;
@@ -8,16 +9,24 @@ interface dataItem {
   rate: number;
 }
 interface usePairParams {
-  base: string;
-  quote: string;
   date?: string;
   from?: string;
 }
 
-export function usePairRate({ base, quote, date, from }: usePairParams) {
-  const [rates, setRates] = useState<number[] | null>(null);
+export function usePairRate({ date, from }: usePairParams) {
+  const [rates, setRates] = useState<dataItem[] | null>(null);
   const [error, setError] = useState("");
   const data = { rates: rates, error: error, loading: !rates };
+  const currenciesInfo = useContext(CurrencyContext);
+  let base = "";
+  let quote = "";
+  if (!currenciesInfo) {
+    setError("Null context");
+  } else {
+    base = String(currenciesInfo.sendCurrency);
+    quote = String(currenciesInfo.receiveCurrency);
+  }
+
   useEffect(() => {
     const controller = new AbortController();
     async function fetchData() {
@@ -31,13 +40,8 @@ export function usePairRate({ base, quote, date, from }: usePairParams) {
           const errorData = await response.json();
           throw new Error(errorData.message);
         }
-        const json = await response.json();
-        console.log(json, url);
-        if (from) {
-          setRates(json.map((d: dataItem) => d.rate));
-        } else {
-          setRates([json.rate]);
-        }
+        const json = [await response.json()].flat();
+        setRates(json);
       } catch (e) {
         if (getError(e, "name") === "AbortError") {
           console.log("Fetch successfully aborted, ignoring error.");
@@ -46,7 +50,7 @@ export function usePairRate({ base, quote, date, from }: usePairParams) {
         setError(getError(e, "message"));
       }
     }
-    fetchData();
+    if (data.error == "") fetchData();
 
     return () => {
       controller.abort();

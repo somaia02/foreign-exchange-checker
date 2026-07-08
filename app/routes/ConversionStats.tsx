@@ -1,24 +1,12 @@
-import { useContext } from "react";
 import { usePairRate } from "./api/usePairRate";
-import { CurrencyContext } from "./CurrencyContext";
 import "./ConversionStats.css";
 
 export default function ConversionStats() {
-  const currenciesInfo = useContext(CurrencyContext);
-  if (currenciesInfo == null) return <p>Null context</p>;
-  const { sendCurrency, receiveCurrency } = currenciesInfo;
-  const lastRateData = usePairRate({
-    base: String(sendCurrency),
-    quote: String(receiveCurrency),
-  });
+  const lastRateData = usePairRate({});
   const prevDate = new Date();
   prevDate.setDate(prevDate.getDate() - 1);
   const prevDateStr = prevDate.toISOString().split("T")[0];
-  const openRateData = usePairRate({
-    base: String(sendCurrency),
-    quote: String(receiveCurrency),
-    date: prevDateStr,
-  });
+  const openRateData = usePairRate({ date: prevDateStr });
   if (lastRateData.error != "" || openRateData.error != "") {
     return (
       <>
@@ -29,8 +17,8 @@ export default function ConversionStats() {
   } else if (lastRateData.loading || openRateData.loading) {
     return <p>Loading ...</p>;
   }
-  const lastRate = lastRateData.rates![0];
-  const openRate = openRateData.rates![0];
+  const lastRate = lastRateData.rates![0].rate;
+  const openRate = openRateData.rates![0].rate;
   const change = lastRate - openRate;
   const changePercent = (100 * change) / openRate;
   const changeValue =

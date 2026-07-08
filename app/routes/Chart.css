@@ -3,10 +3,18 @@
   font: var(--txt-preset-6);
   color: var(--neutral-200);
 }
-.domain,
-.tick line {
+.no-tick .domain,
+.no-tick .tick line {
   display: none;
 }
 .chart__line {
   color: var(--lime-500);
+}
+.gridline {
+  color: var(--neutral-500);
+  stroke-dasharray: 3, 3;
+  stroke-width: 1.5px;
+  .domain {
+    display: none;
+  }
 }

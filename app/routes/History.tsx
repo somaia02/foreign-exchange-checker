@@ -12,7 +12,7 @@ interface RateChartProps {
 }
 
 export default function History() {
-  const [timeframe, setTimeframe] = useState<Key>("1w");
+  const [timeframe, setTimeframe] = useState<Key>("1m");
   return (
     <div className="history">
       <ConversionStats />

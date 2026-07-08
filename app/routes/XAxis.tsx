@@ -26,5 +26,7 @@ export default function XAxis({
     );
   }, [gx, x, tickCount, dateFormat]);
 
-  return <g ref={gx} transform={`translate(0,${height - 16})`} />;
+  return (
+    <g ref={gx} transform={`translate(0,${height - 20})`} className="no-tick" />
+  );
 }

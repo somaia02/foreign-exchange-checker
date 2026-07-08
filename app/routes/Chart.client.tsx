@@ -1,7 +1,6 @@
 import * as d3 from "d3";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useWindowWidth } from "./useWindowWidth";
-import { CurrencyContext } from "./CurrencyContext";
 import EmptyChart from "./EmptyChart";
 
 import "./Chart.css";
@@ -20,7 +19,7 @@ const duration = {
 /* From design */
 const height = 298;
 const marginTop = 5;
-const marginRight = 0;
+const marginRight = 5;
 const marginBottom = 26;
 const marginLeft = 52;
 
@@ -30,22 +29,16 @@ export default function Chart({ timeframe }: { timeframe: Timeframe }) {
   const [chartWidth, setChartWidth] = useState(300);
   const svgRef = useRef<SVGSVGElement>(null);
 
-  const currenciesInfo = useContext(CurrencyContext);
-  if (currenciesInfo == null) return <p>Null context</p>;
-  const base = String(currenciesInfo.sendCurrency);
-  const quote = String(currenciesInfo.receiveCurrency);
-
   const dates = getDates(timeframe);
   const date0 = dates[0].toISOString().split("T")[0];
-  console.log(date0);
-  const rateData = usePairRate({ base, quote, from: date0 });
+  const rateData = usePairRate({ from: date0 });
   useEffect(() => {
     const width = svgRef.current?.getBoundingClientRect()?.width;
     setChartWidth(width ?? 300);
   }, [windowWidth, rateData.loading]);
   if (rateData.error != "") return <EmptyChart content={rateData.error} />;
   if (rateData.loading) return <EmptyChart />;
-  const rates = rateData.rates!;
+  const rates = rateData.rates!.map((d) => d.rate);
   const data = rates.map((rate, index) => ({ date: dates[index], rate }));
   const xRange = [dates[0], dates.at(-1)!];
   const yDomain = d3.extent(rates);
@@ -70,7 +63,7 @@ export default function Chart({ timeframe }: { timeframe: Timeframe }) {
     .y1((d) => y(d.rate));
 
   const tickCount = Math.min(dates.length, windowWidth > 600 ? 5 : 3);
-  const dateFormat = timeframe == "5y" ? "%B %Y" : "%B %d";
+  const dateFormat = timeframe == "5y" ? "%b %Y" : "%b %d";
 
   return (
     <svg className="chart" ref={svgRef} height={height}>
@@ -83,15 +76,8 @@ export default function Chart({ timeframe }: { timeframe: Timeframe }) {
           />
         </linearGradient>
       </defs>
-      <XAxis
-        x={x}
-        tickCount={tickCount}
-        dateFormat={dateFormat}
-        height={height}
-      />
-      <YAxis y={y} yRange={yRange} />
       <rect
-        width={chartWidth - marginLeft - marginRight}
+        width={chartWidth - marginLeft - marginRight - 1}
         height={height - marginBottom - marginTop}
         fill="url('#myGradient')"
         transform={`translate(${marginLeft + 1}, ${marginTop + 1})`}
@@ -103,6 +89,18 @@ export default function Chart({ timeframe }: { timeframe: Timeframe }) {
         stroke="currentColor"
         strokeWidth="2"
         d={line(data) ?? undefined}
+      />
+      <XAxis
+        x={x}
+        tickCount={tickCount}
+        dateFormat={dateFormat}
+        height={height}
+      />
+      <YAxis
+        y={y}
+        yRange={yRange}
+        width={chartWidth - marginLeft - marginRight}
+        marginLeft={marginLeft}
       />
     </svg>
   );
