@@ -5,6 +5,7 @@ import History from "./History";
 import Compare from "./Compare";
 import "./Details.css";
 import { useLoaderData } from "react-router";
+import Favorites from "./Favorites";
 
 type Tab = "history" | "compare" | "favorites" | "log";
 interface DetailsTabsProps {
@@ -14,12 +15,12 @@ interface DetailsTabsProps {
 const content = {
   history: <History />,
   compare: <Compare />,
-  favorites: <></>,
+  favorites: <Favorites />,
   log: <></>,
 };
 
 export default function Details() {
-  const [selectedTab, setSelectedTab] = useState<Tab>("compare");
+  const [selectedTab, setSelectedTab] = useState<Tab>("favorites");
   return (
     <div className="details">
       <DetailsTabs value={selectedTab} onChange={setSelectedTab} />

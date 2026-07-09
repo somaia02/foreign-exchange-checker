@@ -13,7 +13,7 @@ export default function FavoriteBtn({
   className,
   includeTxt = true,
 }: FavoriteBtnProps) {
-  let fetcher = useFetcher();
+  const fetcher = useFetcher();
   const data = useLoaderData();
   let favoritePairs = data.favoritePairs;
   const favorited = favoritePairs.includes(`${base},${quote}`);
