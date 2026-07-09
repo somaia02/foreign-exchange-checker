@@ -1,3 +1,7 @@
+.currency-selector .currency-icon {
+  width: 20px;
+  height: 20px;
+}
 .currency-selector .react-aria-Button {
   background-color: var(--neutral-500);
   border: var(--neutral-400) solid 1px;

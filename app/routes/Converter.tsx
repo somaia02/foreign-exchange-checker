@@ -2,7 +2,7 @@ import convertIcon from "../assets/images/icon-exchange-vertical.svg";
 import CurrencySelector from "./CurrencySelector.tsx";
 import ConverterFooter from "./ConverterFooter.tsx";
 import { type Key } from "react-aria-components";
-import { useContext, useRef, useState } from "react";
+import { useContext, useRef } from "react";
 import { usePairRate } from "./api/usePairRate.ts";
 import { CurrencyContext } from "./CurrencyContext.ts";
 import "./Converter.css";
@@ -17,12 +17,17 @@ interface CalculatorItemProps {
 }
 
 export default function Converter() {
+  const data = usePairRate({});
   const currenciesInfo = useContext(CurrencyContext);
   if (currenciesInfo == null) return <p>Null context</p>;
-  const { sendCurrency, receiveCurrency, setSendCurrency, setReceiveCurrency } =
-    currenciesInfo;
-  const [sendValue, setSendValue] = useState<"" | number>("");
-  const data = usePairRate({});
+  const {
+    sendCurrency,
+    receiveCurrency,
+    setSendCurrency,
+    setReceiveCurrency,
+    sendValue,
+    setSendValue,
+  } = currenciesInfo;
   let receiveValue: string | number = "";
   let converterInfo;
   if (data.error !== "") {
@@ -103,7 +108,7 @@ function CalculatorItem({
   disabled = [],
 }: CalculatorItemProps) {
   const triggerRef = useRef(null);
-  const color = title === "send" ? "" : "lime";
+  const color = title === "send" ? "white" : "lime";
   return (
     <div className="calculator-item" ref={triggerRef}>
       <p className="calculator-item__title">{title}</p>
@@ -111,7 +116,7 @@ function CalculatorItem({
         <input
           placeholder="0"
           type="text"
-          value={value}
+          value={value.toLocaleString("en-US")}
           className={`calculator-item__input color-${color}`}
           onChange={onValueChange}
         />

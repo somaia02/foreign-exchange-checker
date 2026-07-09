@@ -9,22 +9,22 @@ interface dataItem {
   rate: number;
 }
 interface usePairParams {
+  base?: string;
+  quote?: string;
   date?: string;
   from?: string;
 }
 
-export function usePairRate({ date, from }: usePairParams) {
+export function usePairRate({ base, quote, date, from }: usePairParams) {
   const [rates, setRates] = useState<dataItem[] | null>(null);
   const [error, setError] = useState("");
   const data = { rates: rates, error: error, loading: !rates };
   const currenciesInfo = useContext(CurrencyContext);
-  let base = "";
-  let quote = "";
   if (!currenciesInfo) {
     setError("Null context");
   } else {
-    base = String(currenciesInfo.sendCurrency);
-    quote = String(currenciesInfo.receiveCurrency);
+    base = base ?? String(currenciesInfo.sendCurrency);
+    quote = quote ?? String(currenciesInfo.receiveCurrency);
   }
 
   useEffect(() => {
@@ -55,6 +55,6 @@ export function usePairRate({ date, from }: usePairParams) {
     return () => {
       controller.abort();
     };
-  }, [base, quote, date]);
+  }, [base, quote, date, from]);
   return data;
 }

@@ -2,6 +2,7 @@ import type { Key } from "react-aria-components";
 import { useState } from "react";
 import { Select, SelectItem } from "./Select/Select";
 import History from "./History";
+import Compare from "./Compare";
 import "./Details.css";
 import { useLoaderData } from "react-router";
 
@@ -12,13 +13,13 @@ interface DetailsTabsProps {
 }
 const content = {
   history: <History />,
-  compare: <></>,
+  compare: <Compare />,
   favorites: <></>,
   log: <></>,
 };
 
 export default function Details() {
-  const [selectedTab, setSelectedTab] = useState<Tab>("history");
+  const [selectedTab, setSelectedTab] = useState<Tab>("compare");
   return (
     <div className="details">
       <DetailsTabs value={selectedTab} onChange={setSelectedTab} />

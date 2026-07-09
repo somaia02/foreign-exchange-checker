@@ -50,11 +50,14 @@ export async function action({ request }: Route.ActionArgs) {
 export default function App() {
   const [sendCurrency, setSendCurrency] = useState<Key | null>("usd");
   const [receiveCurrency, setReceiveCurrency] = useState<Key | null>("eur");
+  const [sendValue, setSendValue] = useState<"" | number>("");
   const currencies = {
     sendCurrency,
     setSendCurrency,
     receiveCurrency,
     setReceiveCurrency,
+    sendValue,
+    setSendValue,
   };
   return (
     <CurrencyContext value={currencies}>

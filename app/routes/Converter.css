@@ -40,10 +40,10 @@
 }
 .calculator-item__input {
   border: none;
-  color: inherit;
   font: var(--txt-preset-1-tablet);
   background: transparent;
   field-sizing: content;
+  flex: 1;
   &:focus {
     outline: none;
   }

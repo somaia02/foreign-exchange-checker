@@ -1,10 +1,24 @@
 const BASE = "EGP";
-
+export interface dataItem {
+  iso_code: string;
+  iso_numeric: string;
+  name: string;
+  symbol: string;
+  start_date: string;
+  end_date: string;
+}
 export async function fetchCurrencies() {
   const currencies = await fetchData(
     "https://api.frankfurter.dev/v2/currencies",
   );
-  return currencies;
+  const currenciesInfo = currencies.reduce(
+    (acc: Record<string, dataItem>, currency: dataItem) => {
+      acc[currency.iso_code.toLowerCase()] = currency;
+      return acc;
+    },
+    {},
+  );
+  return currenciesInfo;
 }
 export async function fetchAllRates() {
   const url = `https://api.frankfurter.dev/v2/rates?base=${BASE}`;

@@ -8,11 +8,11 @@ import { Popover } from "./Select/Popover.tsx";
 import { SearchField } from "./Select/SearchField.tsx";
 import { ChevronDown, Check } from "./icons.tsx";
 import { type RefObject } from "react";
-import { flagNames } from "./utils.tsx";
 import { useLoaderData } from "react-router";
 import "./CurrencySelector.css";
+import type { dataItem } from "./api/api.ts";
+import FlagIcon from "./FlagIcon.tsx";
 
-const baseUrl = import.meta.env.BASE_URL;
 const POPULAR = ["usd", "eur", "gbp"];
 
 interface CurrencySelectorProps {
@@ -30,7 +30,7 @@ export default function CurrencySelector({
 }: CurrencySelectorProps) {
   const { contains } = useFilter({ sensitivity: "base" });
   const data = useLoaderData();
-  const currencies = data.currencies;
+  const currencies = Object.values(data.currencies) as dataItem[];
   const codeString = String(value);
   const popularItems = [];
   const otherItems = [];
@@ -122,19 +122,4 @@ function CurrencyOption({
       {isSelected && <Check />}
     </SelectItem>
   );
-}
-
-function FlagIcon({ code }: { code: string }) {
-  const icon = flagNames.includes(code.slice(0, 2)) ? (
-    <img
-      src={`${baseUrl}flags/${code.slice(0, 2)}.webp`}
-      alt=""
-      width="20"
-      height="20"
-      className="currency-icon"
-    />
-  ) : (
-    <span className="currency-icon globe-icon">&#127760;</span>
-  );
-  return icon;
 }
