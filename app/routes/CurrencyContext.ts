@@ -6,7 +6,7 @@ interface Currencies {
   receiveCurrency: Key | null;
   setSendCurrency: (c: Key | null) => void;
   setReceiveCurrency: (c: Key | null) => void;
-  sendValue: "" | number;
-  setSendValue: (v: "" | number) => void;
+  sendValue: number;
+  setSendValue: (v: number) => void;
 }
 export const CurrencyContext = createContext<Currencies | null>(null);

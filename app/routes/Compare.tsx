@@ -28,7 +28,7 @@ export default function Compare() {
       <CompareList
         quotes={QUOTES}
         base={String(sendCurrency)}
-        value={sendValue || 0}
+        value={sendValue}
       />
     </div>
   );
@@ -37,7 +37,7 @@ function CompareHeader({
   sendValue,
   sendCurrency,
 }: {
-  sendValue: "" | number;
+  sendValue: number;
   sendCurrency: Key | null;
 }) {
   return (
@@ -45,7 +45,12 @@ function CompareHeader({
       <p className="compare-header__main">
         <span className="compare-header__multi">Multi-currency</span>
         <span className="compare-header__value">
-          {sendValue.toLocaleString("en-US") || 0} from {sendCurrency}
+          {Number.isNaN(sendValue)
+            ? 0
+            : sendValue.toLocaleString("en-US", {
+                maximumFractionDigits: 2,
+              })}{" "}
+          from {sendCurrency}
         </span>
       </p>
       <p className="compare-header__pairs">{QUOTES.length} pairs</p>
