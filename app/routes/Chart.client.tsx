@@ -69,10 +69,10 @@ export default function Chart({ timeframe }: { timeframe: Timeframe }) {
     <svg className="chart" ref={svgRef} height={height}>
       <defs>
         <linearGradient id="myGradient" gradientTransform="rotate(90)">
-          <stop offset="0%" stop-color="var(--lime-500)" />
+          <stop offset="0%" stopColor="var(--lime-500)" />
           <stop
             offset="100%"
-            stop-color="rgb(from var(--neutral-700) r g b / 0)"
+            stopColor="rgb(from var(--neutral-700) r g b / 0)"
           />
         </linearGradient>
       </defs>

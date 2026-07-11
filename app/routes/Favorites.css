@@ -1,15 +1,3 @@
-.favorites {
-  padding: 1rem;
-  border: var(--neutral-600) solid 1px;
-  border-radius: 16px;
-  background-color: var(--neutral-700);
-}
-.favorites__header {
-  margin-block-end: 1rem;
-  display: flex;
-  justify-content: space-between;
-  text-transform: uppercase;
-}
 .favorites__title {
   font: var(--txt-preset-3-medium);
   letter-spacing: 1px;

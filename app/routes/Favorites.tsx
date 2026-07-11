@@ -6,7 +6,7 @@ export default function Favorites() {
   const data = useLoaderData();
   const favoritePairs = data.favoritePairs;
   return (
-    <div className="favorites">
+    <div className="favorites list-wrapper">
       <FavoritesHeader count={favoritePairs.length} />
       <FavoritesList favorites={favoritePairs} />
     </div>
@@ -14,7 +14,7 @@ export default function Favorites() {
 }
 function FavoritesHeader({ count }: { count: number }) {
   return (
-    <p className="favorites__header">
+    <p className="favorites__header list-header">
       <span className="favorites__title">Pinned pairs</span>
       <span className="favorites__count">{count} favorites</span>
     </p>

@@ -37,7 +37,7 @@ function ChartHeader() {
         {base}/{quote}
       </p>
       <p className="chart-header__info">
-        {rate} . {date.replace(",", "")}
+        {rate} · {date.replace(",", "")}
       </p>
     </div>
   );

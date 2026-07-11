@@ -5,9 +5,13 @@ import { usePairRate } from "./api/usePairRate";
 
 export default function FavoritesList({ favorites }: { favorites: string[] }) {
   return (
-    <div className="favorites__list">
+    <div className="favorites__list list">
       {favorites.map((pair) => (
-        <FavoritesItem base={pair.split(",")[0]} quote={pair.split(",")[1]} />
+        <FavoritesItem
+          key={pair}
+          base={pair.split(",")[0]}
+          quote={pair.split(",")[1]}
+        />
       ))}
     </div>
   );
@@ -40,7 +44,7 @@ function FavoritesItem({ base, quote }: { base: string; quote: string }) {
         ? `▼ ${changePercent.toFixed(2)}`
         : `${changePercent.toFixed(2)}`;
   return (
-    <div className="favorites__item">
+    <div className="favorites__item list-item">
       <div className="favorites__pair">
         {base}
         <ArrowRight />

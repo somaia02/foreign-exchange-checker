@@ -10,7 +10,7 @@ import "./Converter.css";
 interface CalculatorItemProps {
   title: string;
   currency: Key | null;
-  value: string | number;
+  value: "" | number;
   onCurrencyChange: (c: Key | null) => void;
   onValueChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   disabled?: string[];
@@ -28,26 +28,22 @@ export default function Converter() {
     sendValue,
     setSendValue,
   } = currenciesInfo;
-  let receiveValue: string | number = "";
+  let receiveValue: "" | number = "";
   let converterInfo;
   if (data.error !== "") {
     converterInfo = data.error;
   } else if (data.loading) {
     converterInfo = "Loading rate ...";
   } else {
-    receiveValue = sendValue
-      ? Number((sendValue * data.rates![0].rate).toFixed(2))
-      : "";
+    receiveValue = sendValue ? Number(sendValue * data.rates![0].rate) : "";
     converterInfo = `1 ${sendCurrency} = ${data.rates![0].rate} ${receiveCurrency}`;
   }
   function handleSendValueChange(e: React.ChangeEvent<HTMLInputElement>) {
     setSendValue(Number(e.target.value));
   }
   function handleReceiveValueChange(e: React.ChangeEvent<HTMLInputElement>) {
-    if (data.rates![0]) {
-      setSendValue(
-        Number((Number(e.target.value) / data.rates![0].rate).toFixed(2)),
-      );
+    if (data.rates![0] && e.target.value !== "") {
+      setSendValue(Number(e.target.value) / data.rates![0].rate);
     } else {
       setSendValue("");
     }
@@ -109,6 +105,8 @@ function CalculatorItem({
 }: CalculatorItemProps) {
   const triggerRef = useRef(null);
   const color = title === "send" ? "white" : "lime";
+  const v =
+    value == "" ? value : Number(value.toFixed(2)).toLocaleString("en-US");
   return (
     <div className="calculator-item" ref={triggerRef}>
       <p className="calculator-item__title">{title}</p>
@@ -116,7 +114,7 @@ function CalculatorItem({
         <input
           placeholder="0"
           type="text"
-          value={value.toLocaleString("en-US")}
+          value={v}
           className={`calculator-item__input color-${color}`}
           onChange={onValueChange}
         />

@@ -3,9 +3,10 @@ import { useState } from "react";
 import { Select, SelectItem } from "./Select/Select";
 import History from "./History";
 import Compare from "./Compare";
+import Favorites from "./Favorites";
+import Log from "./Log";
 import "./Details.css";
 import { useLoaderData } from "react-router";
-import Favorites from "./Favorites";
 
 type Tab = "history" | "compare" | "favorites" | "log";
 interface DetailsTabsProps {
@@ -16,11 +17,11 @@ const content = {
   history: <History />,
   compare: <Compare />,
   favorites: <Favorites />,
-  log: <></>,
+  log: <Log />,
 };
 
 export default function Details() {
-  const [selectedTab, setSelectedTab] = useState<Tab>("favorites");
+  const [selectedTab, setSelectedTab] = useState<Tab>("log");
   return (
     <div className="details">
       <DetailsTabs value={selectedTab} onChange={setSelectedTab} />

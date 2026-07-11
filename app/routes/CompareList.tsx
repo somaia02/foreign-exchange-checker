@@ -26,7 +26,7 @@ export default function CompareList({ quotes, base, value }: CompareListProps) {
   if (rateData.loading) return <p>Loading...</p>;
   const rates = rateData.rates!;
   return (
-    <div className="compare__list">
+    <div className="compare__list list">
       {quotes.map((q) => {
         if (q == base) return;
         return (
@@ -46,7 +46,7 @@ export default function CompareList({ quotes, base, value }: CompareListProps) {
 
 function CompareItem({ base, quote, name, rate, value }: CompareItemProps) {
   return (
-    <div className="compare__item">
+    <div className="compare__item list-item">
       <div>
         <FlagIcon code={quote} />
         <div className="compare-quote">
@@ -57,7 +57,7 @@ function CompareItem({ base, quote, name, rate, value }: CompareItemProps) {
       <div>
         <div className="compare__item__values">
           <p className="compare__receive-value">
-            {Number(value.toFixed(2)).toLocaleString()}
+            {Number(value.toFixed(2)).toLocaleString("en-US")}
           </p>
           <p className="compare__rate">@ {rate}</p>
         </div>

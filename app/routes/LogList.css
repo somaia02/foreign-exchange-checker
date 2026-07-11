@@ -1,0 +1,47 @@
+.log-item {
+  text-transform: uppercase;
+  gap: 0.625rem;
+}
+.log-item__left {
+  font: var(--txt-preset-4);
+  letter-spacing: 1px;
+  display: grid;
+  gap: 0.25rem;
+  .arrow-right {
+    color: var(--neutral-200);
+  }
+}
+.log-item__time {
+  color: var(--neutral-200);
+}
+.log-item__currencies {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.log-item__right {
+  font: var(--txt-preset-3);
+  letter-spacing: 1px;
+  display: grid;
+  gap: 0.125rem;
+  text-align: end;
+  margin-inline-start: auto;
+}
+.log-item__send-value {
+  color: var(--neutral-100);
+}
+.log-item__receive-value {
+  color: var(--lime-500);
+}
+.log-item__delete-btn {
+  padding: 0.5rem;
+  border: var(--neutral-500) solid 1px;
+  border-radius: 8px;
+  background-color: var(--neutral-600);
+  color: var(--neutral-50);
+  cursor: pointer;
+  &:hover {
+    border-color: var(--lime-500);
+    color: var(--lime-500);
+  }
+}

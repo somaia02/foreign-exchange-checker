@@ -1,17 +1,5 @@
-.compare__list {
-  display: grid;
-  gap: 0.75rem;
-}
 .compare__item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   gap: 0.625rem;
-
-  padding: 0.75rem;
-  border: var(--neutral-500) solid 1px;
-  border-radius: 10px;
-  background-color: var(--neutral-600);
 
   > * {
     display: flex;
@@ -42,6 +30,7 @@
 .compare__rate {
   font: var(--txt-preset-6);
   color: var(--neutral-200);
+  text-wrap: nowrap;
 }
 .compare__item__values {
   text-align: end;

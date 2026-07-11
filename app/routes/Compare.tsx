@@ -23,7 +23,7 @@ export default function Compare() {
   if (currenciesInfo == null) return <p>Null context</p>;
   const { sendCurrency, sendValue } = currenciesInfo;
   return (
-    <div className="compare">
+    <div className="compare list-wrapper">
       <CompareHeader sendValue={sendValue} sendCurrency={sendCurrency} />
       <CompareList
         quotes={QUOTES}
@@ -41,7 +41,7 @@ function CompareHeader({
   sendCurrency: Key | null;
 }) {
   return (
-    <div className="compare-header">
+    <div className="compare-header list-header">
       <p className="compare-header__main">
         <span className="compare-header__multi">Multi-currency</span>
         <span className="compare-header__value">
