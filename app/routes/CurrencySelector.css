@@ -34,9 +34,6 @@
   display: flex;
   flex-direction: column;
 }
-.currency-selector__popover .react-aria-Input {
-  padding-inline: 0.125rem;
-}
 .currency-selector__section-header {
   display: flex;
   justify-content: space-between;

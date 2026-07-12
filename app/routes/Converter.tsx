@@ -1,7 +1,6 @@
 import convertIcon from "../assets/images/icon-exchange-vertical.svg";
 import CurrencySelector from "./CurrencySelector.tsx";
 import ConverterFooter from "./ConverterFooter.tsx";
-import { NumberField } from "./NumberField.tsx";
 import { type Key } from "react-aria-components";
 import { useContext, useRef } from "react";
 import { usePairRate } from "./api/usePairRate.ts";
@@ -11,9 +10,9 @@ import "./Converter.css";
 interface CalculatorItemProps {
   title: string;
   currency: Key | null;
-  value: number;
+  value: "" | number;
   onCurrencyChange: (c: Key | null) => void;
-  onValueChange: (v: number) => void;
+  onValueChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   disabled?: string[];
 }
 
@@ -29,22 +28,24 @@ export default function Converter() {
     sendValue,
     setSendValue,
   } = currenciesInfo;
-  let receiveValue = 0;
+  let receiveValue: "" | number = "";
   let converterInfo;
   if (data.error !== "") {
     converterInfo = data.error;
   } else if (data.loading) {
     converterInfo = "Loading rate ...";
   } else {
-    receiveValue = sendValue * data.rates![0].rate;
+    receiveValue = sendValue ? Number(sendValue * data.rates![0].rate) : "";
     converterInfo = `1 ${sendCurrency} = ${data.rates![0].rate} ${receiveCurrency}`;
   }
-
-  function handleReceiveValueChange(val: number) {
-    if (data.rates![0]) {
-      setSendValue(val / data.rates![0].rate);
+  function handleSendValueChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setSendValue(Number(e.target.value));
+  }
+  function handleReceiveValueChange(e: React.ChangeEvent<HTMLInputElement>) {
+    if (data.rates![0] && e.target.value !== "") {
+      setSendValue(Number(e.target.value) / data.rates![0].rate);
     } else {
-      setSendValue(0);
+      setSendValue("");
     }
   }
   function handleSwapClick() {
@@ -63,7 +64,7 @@ export default function Converter() {
           currency={sendCurrency}
           value={sendValue}
           onCurrencyChange={setSendCurrency}
-          onValueChange={setSendValue}
+          onValueChange={handleSendValueChange}
           disabled={[String(receiveCurrency)]}
         ></CalculatorItem>
         <button
@@ -104,17 +105,18 @@ function CalculatorItem({
 }: CalculatorItemProps) {
   const triggerRef = useRef(null);
   const color = title === "send" ? "white" : "lime";
+  const v =
+    value == "" ? value : Number(value.toFixed(2)).toLocaleString("en-US");
   return (
     <div className="calculator-item" ref={triggerRef}>
       <p className="calculator-item__title">{title}</p>
       <div className="calculator-item__options">
-        <NumberField
-          aria-label={title}
+        <input
           placeholder="0"
-          value={value}
-          onChange={onValueChange}
-          formatOptions={{ maximumFractionDigits: 3 }}
+          type="text"
+          value={v}
           className={`calculator-item__input color-${color}`}
+          onChange={onValueChange}
         />
         <CurrencySelector
           triggerRef={triggerRef}
