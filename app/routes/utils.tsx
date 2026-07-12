@@ -7,6 +7,18 @@ export function getErrorName(error: unknown) {
   return "";
 }
 
+export function displayFormat(val: string | number) {
+  if (val == "") return val;
+  else {
+    const dot = typeof val === "string" && val.at(-1) == "." ? "." : "";
+    return (
+      Intl.NumberFormat("en-US", { maximumFractionDigits: 3 }).format(
+        Number(val),
+      ) + dot
+    );
+  }
+}
+
 export const flagNames = [
   "ae",
   "ar",

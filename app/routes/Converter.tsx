@@ -2,15 +2,16 @@ import convertIcon from "../assets/images/icon-exchange-vertical.svg";
 import CurrencySelector from "./CurrencySelector.tsx";
 import ConverterFooter from "./ConverterFooter.tsx";
 import { type Key } from "react-aria-components";
-import { useContext, useRef } from "react";
+import { useContext, useRef, useState } from "react";
 import { usePairRate } from "./api/usePairRate.ts";
 import { CurrencyContext } from "./CurrencyContext.ts";
+import { displayFormat } from "./utils.tsx";
 import "./Converter.css";
 
 interface CalculatorItemProps {
   title: string;
   currency: Key | null;
-  value: "" | number;
+  value: string;
   onCurrencyChange: (c: Key | null) => void;
   onValueChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   disabled?: string[];
@@ -18,6 +19,7 @@ interface CalculatorItemProps {
 
 export default function Converter() {
   const data = usePairRate({});
+  const [receiveLastIsDot, setReceiveLastIsDot] = useState(false);
   const currenciesInfo = useContext(CurrencyContext);
   if (currenciesInfo == null) return <p>Null context</p>;
   const {
@@ -28,24 +30,49 @@ export default function Converter() {
     sendValue,
     setSendValue,
   } = currenciesInfo;
-  let receiveValue: "" | number = "";
+  console.log(sendValue, receiveLastIsDot);
+
+  const sendValueNum = Number(sendValue);
+  const sendValueDisplayed = displayFormat(sendValue);
+  let receiveValue: string = "";
   let converterInfo;
   if (data.error !== "") {
     converterInfo = data.error;
   } else if (data.loading) {
     converterInfo = "Loading rate ...";
   } else {
-    receiveValue = sendValue ? Number(sendValue * data.rates![0].rate) : "";
+    receiveValue = sendValue ? String(sendValueNum * data.rates![0].rate) : "";
     converterInfo = `1 ${sendCurrency} = ${data.rates![0].rate} ${receiveCurrency}`;
   }
+  const receiveValueDisplayed =
+    displayFormat(receiveValue).includes(".") || !receiveLastIsDot
+      ? displayFormat(receiveValue)
+      : displayFormat(receiveValue) + ".";
   function handleSendValueChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setSendValue(Number(e.target.value));
+    setSendValue(e.target.value.replace(",", ""));
+    setReceiveLastIsDot(false);
   }
   function handleReceiveValueChange(e: React.ChangeEvent<HTMLInputElement>) {
     if (data.rates![0] && e.target.value !== "") {
-      setSendValue(Number(e.target.value) / data.rates![0].rate);
+      console.log("Typed: ", e.target.value);
+      console.log(
+        "Send",
+        String(
+          Number(e.target.value.replaceAll(",", "")) / data.rates![0].rate,
+        ),
+      );
+      setSendValue(
+        String(
+          Number(e.target.value.replaceAll(",", "")) / data.rates![0].rate,
+        ),
+      );
     } else {
       setSendValue("");
+    }
+    if (e.target.value.at(-1) === ".") {
+      setReceiveLastIsDot(true);
+    } else {
+      setReceiveLastIsDot(false);
     }
   }
   function handleSwapClick() {
@@ -62,7 +89,7 @@ export default function Converter() {
         <CalculatorItem
           title="send"
           currency={sendCurrency}
-          value={sendValue}
+          value={sendValueDisplayed}
           onCurrencyChange={setSendCurrency}
           onValueChange={handleSendValueChange}
           disabled={[String(receiveCurrency)]}
@@ -78,7 +105,7 @@ export default function Converter() {
         <CalculatorItem
           title="receive"
           currency={receiveCurrency}
-          value={receiveValue}
+          value={receiveValueDisplayed}
           onCurrencyChange={setReceiveCurrency}
           onValueChange={handleReceiveValueChange}
           disabled={[String(sendCurrency)]}
@@ -105,8 +132,6 @@ function CalculatorItem({
 }: CalculatorItemProps) {
   const triggerRef = useRef(null);
   const color = title === "send" ? "white" : "lime";
-  const v =
-    value == "" ? value : Number(value.toFixed(2)).toLocaleString("en-US");
   return (
     <div className="calculator-item" ref={triggerRef}>
       <p className="calculator-item__title">{title}</p>
@@ -114,7 +139,8 @@ function CalculatorItem({
         <input
           placeholder="0"
           type="text"
-          value={v}
+          inputMode="decimal"
+          value={value}
           className={`calculator-item__input color-${color}`}
           onChange={onValueChange}
         />

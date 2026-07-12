@@ -2,6 +2,8 @@ import { useContext } from "react";
 import { CurrencyContext } from "./CurrencyContext";
 import { type Key } from "react-aria-components";
 import CompareList from "./CompareList";
+import { displayFormat } from "./utils.tsx";
+
 import "./Compare.css";
 
 const QUOTES = [
@@ -28,7 +30,7 @@ export default function Compare() {
       <CompareList
         quotes={QUOTES}
         base={String(sendCurrency)}
-        value={sendValue || 0}
+        value={Number(sendValue)}
       />
     </div>
   );
@@ -37,7 +39,7 @@ function CompareHeader({
   sendValue,
   sendCurrency,
 }: {
-  sendValue: "" | number;
+  sendValue: string;
   sendCurrency: Key | null;
 }) {
   return (
@@ -45,7 +47,7 @@ function CompareHeader({
       <p className="compare-header__main">
         <span className="compare-header__multi">Multi-currency</span>
         <span className="compare-header__value">
-          {sendValue.toLocaleString("en-US") || 0} from {sendCurrency}
+          {displayFormat(sendValue) || 0} from {sendCurrency}
         </span>
       </p>
       <p className="compare-header__pairs">{QUOTES.length} pairs</p>

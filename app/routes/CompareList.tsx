@@ -1,6 +1,8 @@
 import { useLoaderData } from "react-router";
 import "./CompareList.css";
 import { useAllQuoteRates } from "./api/useAllQuoteRates";
+import { displayFormat } from "./utils.tsx";
+
 import FlagIcon from "./FlagIcon";
 import FavoriteBtn from "./FavoriteBtn";
 
@@ -56,9 +58,7 @@ function CompareItem({ base, quote, name, rate, value }: CompareItemProps) {
       </div>
       <div>
         <div className="compare__item__values">
-          <p className="compare__receive-value">
-            {Number(value.toFixed(2)).toLocaleString("en-US")}
-          </p>
+          <p className="compare__receive-value">{displayFormat(value)}</p>
           <p className="compare__rate">@ {rate}</p>
         </div>
         <FavoriteBtn
