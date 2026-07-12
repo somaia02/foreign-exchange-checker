@@ -1,10 +1,12 @@
 import "./Favorites.css";
 import { useLoaderData } from "react-router";
 import FavoritesList from "./FavoritesList";
+import EmptyTabPanel from "./EmptyTabPanel";
 
 export default function Favorites() {
   const data = useLoaderData();
   const favoritePairs = data.favoritePairs;
+  if (favoritePairs.length === 0) return <EmptyTabPanel tab="favorites" />;
   return (
     <div className="favorites list-wrapper">
       <FavoritesHeader count={favoritePairs.length} />

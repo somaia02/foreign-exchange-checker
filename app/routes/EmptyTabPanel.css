@@ -1,0 +1,22 @@
+.empty-panel {
+  height: 298px;
+  place-content: center;
+  place-items: center;
+}
+.empty-panel__title {
+  font: var(--txt-preset-2);
+  letter-spacing: -0.5px;
+  color: var(--neutral-100);
+  margin-block-end: 1rem;
+  text-align: center;
+}
+.empty-panel__details {
+  font: var(--txt-preset-3-mobile);
+  letter-spacing: 1px;
+  color: var(--neutral-200);
+  max-width: 500px;
+  text-align: center;
+}
+.empty-panel__currencies {
+  text-transform: uppercase;
+}

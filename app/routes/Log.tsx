@@ -1,11 +1,13 @@
 import { useFetcher, useLoaderData } from "react-router";
 import LogList, { type logItem } from "./LogList";
 import "./Log.css";
+import EmptyTabPanel from "./EmptyTabPanel";
 
 export default function Log() {
   let fetcher = useFetcher();
   const data = useLoaderData();
   let conversionLogs = data.conversionLogs;
+  if (conversionLogs.length === 0) return <EmptyTabPanel tab="log" />;
 
   function handleDelete(time: "all" | number) {
     if (time == "all") conversionLogs = [];

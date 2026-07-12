@@ -1,7 +1,7 @@
 import * as d3 from "d3";
 import { useEffect, useRef, useState } from "react";
 import { useWindowWidth } from "./useWindowWidth";
-import EmptyChart from "./EmptyChart";
+import EmptyTabPanel from "./EmptyTabPanel";
 
 import "./Chart.css";
 import { usePairRate } from "./api/usePairRate";
@@ -36,8 +36,9 @@ export default function Chart({ timeframe }: { timeframe: Timeframe }) {
     const width = svgRef.current?.getBoundingClientRect()?.width;
     setChartWidth(width ?? 300);
   }, [windowWidth, rateData.loading]);
-  if (rateData.error != "") return <EmptyChart content={rateData.error} />;
-  if (rateData.loading) return <EmptyChart />;
+  if (rateData.error != "")
+    return <EmptyTabPanel tab="history" content={rateData.error} />;
+  if (rateData.loading) return <EmptyTabPanel tab="history" />;
   const rates = rateData.rates!.map((d) => d.rate);
   const data = rates.map((rate, index) => ({ date: dates[index], rate }));
   const xRange = [dates[0], dates.at(-1)!];

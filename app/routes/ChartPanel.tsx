@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Chart, { type Timeframe } from "./Chart.client";
-import EmptyChart from "./EmptyChart";
+import EmptyTabPanel from "./EmptyTabPanel";
 import "./ChartPanel.css";
 import { usePairRate } from "./api/usePairRate";
 export default function ChartPanel({ timeframe }: { timeframe: Timeframe }) {
@@ -9,7 +9,11 @@ export default function ChartPanel({ timeframe }: { timeframe: Timeframe }) {
   useEffect(() => {
     setDidMount(true);
   }, []);
-  const chart = didMount ? <Chart timeframe={timeframe} /> : <EmptyChart />;
+  const chart = didMount ? (
+    <Chart timeframe={timeframe} />
+  ) : (
+    <EmptyTabPanel tab="history" />
+  );
   return (
     <div className="chart-panel">
       <ChartHeader />
