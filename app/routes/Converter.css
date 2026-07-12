@@ -47,6 +47,12 @@
   &:focus {
     outline: none;
   }
+  &:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--neutral-200);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+  }
 }
 .calculator-item__options {
   display: flex;
