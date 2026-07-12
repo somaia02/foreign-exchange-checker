@@ -47,7 +47,7 @@ export async function action({ request }: Route.ActionArgs) {
   );
 }
 
-export default function App() {
+export default function App({ loaderData }: Route.ComponentProps) {
   const [sendCurrency, setSendCurrency] = useState<Key | null>("usd");
   const [receiveCurrency, setReceiveCurrency] = useState<Key | null>("eur");
   const [sendValue, setSendValue] = useState<string>("");
@@ -61,18 +61,18 @@ export default function App() {
   };
   return (
     <CurrencyContext value={currencies}>
-      <Header />
+      <Header count={Object.values(loaderData.currencies).length} />
       <LiveMarket />
       <Content />
     </CurrencyContext>
   );
 }
 
-function Header() {
+function Header({ count }: { count: number }) {
   return (
     <header className="header">
       <img src={logo} alt="FX_Checker logo" />
-      <p className="header__info">55 CURRENCIES · EOD · ECB DATA</p>
+      <p className="header__info">{count} CURRENCIES · EOD · ECB DATA</p>
     </header>
   );
 }
