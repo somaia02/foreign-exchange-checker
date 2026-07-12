@@ -44,7 +44,6 @@ export default function Chart({ timeframe }: { timeframe: Timeframe }) {
   const xRange = [dates[0], dates.at(-1)!];
   const yDomain = d3.extent(rates);
   const yRange = yDomain[0] ? yDomain : [0, 1];
-  console.log("Chart width:", chartWidth);
   const x = d3
     .scaleUtc()
     .domain(xRange)
