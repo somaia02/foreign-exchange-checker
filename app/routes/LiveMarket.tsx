@@ -25,7 +25,9 @@ export default function LiveMarket() {
       <p className="live-market__title">&bull; Live markets</p>
       <div className="live-market__rates">
         <div className="live-market__scroller">{items}</div>
-        <div className="live-market__scroller">{items}</div>
+        <div className="live-market__scroller" aria-hidden="true">
+          {items}
+        </div>
       </div>
     </div>
   );
