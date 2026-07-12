@@ -12,4 +12,6 @@ body {
 }
 .content {
   padding: 2rem 1rem;
+  width: min(100%, 1100px);
+  justify-self: center;
 }

@@ -30,7 +30,6 @@ export default function Converter() {
     sendValue,
     setSendValue,
   } = currenciesInfo;
-  console.log(sendValue, receiveLastIsDot);
 
   const sendValueNum = Number(sendValue);
   const sendValueDisplayed = displayFormat(sendValue);

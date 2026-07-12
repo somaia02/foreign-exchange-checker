@@ -15,7 +15,6 @@ export default function History() {
   const [timeframe, setTimeframe] = useState<Key>("1m");
   return (
     <div className="history">
-      <ConversionStats />
       <RateChart selectedKey={timeframe} onSelectionChange={setTimeframe} />
     </div>
   );
@@ -28,6 +27,7 @@ function RateChart({ selectedKey, onSelectionChange }: RateChartProps) {
       onSelectionChange={onSelectionChange}
       className="rate-chart"
     >
+      <ConversionStats />
       <TabList aria-label="Timeframes" className="timeframe-selector">
         {options.map((item) => (
           <Tab key={item} id={item} className="timeframe-selector__tab">

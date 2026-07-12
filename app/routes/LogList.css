@@ -10,9 +10,14 @@
   .arrow-right {
     color: var(--neutral-200);
   }
+  @media (min-width: 600px) {
+    display: flex;
+    gap: 1rem;
+  }
 }
 .log-item__time {
   color: var(--neutral-200);
+  min-width: 64px;
 }
 .log-item__currencies {
   display: flex;
@@ -26,6 +31,10 @@
   gap: 0.125rem;
   text-align: end;
   margin-inline-start: auto;
+  @media (min-width: 600px) {
+    display: flex;
+    gap: 1rem;
+  }
 }
 .log-item__send-value {
   color: var(--neutral-100);

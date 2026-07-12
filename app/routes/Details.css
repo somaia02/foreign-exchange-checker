@@ -1,8 +1,10 @@
-.details {
-  display: grid;
-  gap: 1rem;
+.details-dropdown {
+  margin-block-end: 1rem;
+  @media (min-width: 600px) {
+    display: none;
+  }
 }
-.details__tab-selector .react-aria-Button {
+.details-dropdown .react-aria-Button {
   width: 100%;
   padding: 0.5rem 0.75rem;
   border: var(--neutral-400) solid 1px;
@@ -22,20 +24,23 @@
     gap: 0.5rem;
   }
 }
-.details__tab-selector-popover {
+.details-dropdown__selector-popover {
   width: var(--trigger-width);
   padding: 0.5rem;
   border: var(--neutral-600) solid 1px;
   border-radius: 10px;
   background-color: var(--neutral-700);
 }
-.details__tab {
+.details-dropdown__tab {
   padding: 0.625rem 0.5rem;
   font: var(--txt-preset-3);
   letter-spacing: 1px;
   text-transform: uppercase;
   display: flex;
   justify-content: space-between;
+  &:focus-visible {
+    box-shadow: none;
+  }
 }
 .details__count {
   width: 1.25rem;
@@ -47,4 +52,25 @@
 
   display: grid;
   place-content: center;
+}
+
+.details-tab__selector {
+  display: none;
+  margin-block-end: 1rem;
+  @media (min-width: 600px) {
+    display: flex;
+  }
+}
+.details-tab__selector {
+  border-bottom: var(--neutral-600) solid 1px;
+  gap: 0.5rem;
+}
+.details-tab__tab {
+  padding: 0.5rem 1rem;
+  text-transform: uppercase;
+  display: flex;
+  gap: 0.5rem;
+  &:not(:focus-visible)[data-selected] {
+    border-bottom: var(--lime-500) solid 1px;
+  }
 }

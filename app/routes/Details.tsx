@@ -7,11 +7,13 @@ import Favorites from "./Favorites";
 import Log from "./Log";
 import "./Details.css";
 import { useLoaderData } from "react-router";
+import { Tabs, TabList, Tab, TabPanels, TabPanel } from "./Tabs";
 
 type Tab = "history" | "compare" | "favorites" | "log";
 interface DetailsTabsProps {
   value: Tab;
-  onChange: (c: Tab) => void;
+  onChange: (v: Key | null) => void;
+  count: (string | number)[];
 }
 const content = {
   history: <History />,
@@ -19,19 +21,10 @@ const content = {
   favorites: <Favorites />,
   log: <Log />,
 };
+const tabs = ["history", "compare", "favorites", "log"];
 
 export default function Details() {
-  const [selectedTab, setSelectedTab] = useState<Tab>("log");
-  return (
-    <div className="details">
-      <DetailsTabs value={selectedTab} onChange={setSelectedTab} />
-      {content[selectedTab]}
-    </div>
-  );
-}
-
-function DetailsTabs({ value, onChange }: DetailsTabsProps) {
-  const tabs = ["history", "compare", "favorites", "log"];
+  const [selectedTab, setSelectedTab] = useState<Tab>("history");
   const data = useLoaderData();
   const favLen = data.favoritePairs.length;
   const logLen = data.conversionLogs.length;
@@ -39,22 +32,71 @@ function DetailsTabs({ value, onChange }: DetailsTabsProps) {
 
   function handleChange(val: Key | null) {
     if (!tabs.includes(String(val))) return;
-    onChange(val as Tab);
+    setSelectedTab(val as Tab);
   }
-
   return (
-    <Select
-      aria-label="Select tab"
-      value={value}
-      onChange={handleChange}
-      className="details__tab-selector"
+    <div className="details">
+      <DetailsTabs value={selectedTab} onChange={handleChange} count={count} />
+    </div>
+  );
+}
+
+function DetailsTabs({ value, onChange, count }: DetailsTabsProps) {
+  return (
+    <Tabs
+      selectedKey={value}
+      onSelectionChange={onChange}
+      className="details-tabs"
     >
-      {tabs.map((t: string, i: number) => (
-        <SelectItem key={t} id={t} textValue={t} className="details__tab">
-          {t}
-          {count[i] !== "" ? <p className="details__count">{count[i]}</p> : ""}
-        </SelectItem>
-      ))}
-    </Select>
+      <DetailsDropdown value={value} onChange={onChange} count={count} />
+      <TabList aria-label="Timeframes" className="details-tab__selector">
+        {tabs.map((item, i) => (
+          <Tab key={item} id={item} className="details-tab__tab">
+            {item}
+            {count[i] !== "" ? (
+              <p className="details__count">{count[i]}</p>
+            ) : (
+              ""
+            )}
+          </Tab>
+        ))}
+      </TabList>
+      <TabPanels>
+        {tabs.map((item) => (
+          <TabPanel key={item} id={item}>
+            {content[value]}
+          </TabPanel>
+        ))}
+      </TabPanels>
+    </Tabs>
+  );
+}
+
+function DetailsDropdown({ value, onChange, count }: DetailsTabsProps) {
+  return (
+    <div className="details-dropdown">
+      <Select
+        aria-label="Select tab"
+        value={value}
+        onChange={onChange}
+        className="details-dropdown__selector"
+      >
+        {tabs.map((t: string, i: number) => (
+          <SelectItem
+            key={t}
+            id={t}
+            textValue={t}
+            className="details-dropdown__tab"
+          >
+            {t}
+            {count[i] !== "" ? (
+              <p className="details__count">{count[i]}</p>
+            ) : (
+              ""
+            )}
+          </SelectItem>
+        ))}
+      </Select>
+    </div>
   );
 }

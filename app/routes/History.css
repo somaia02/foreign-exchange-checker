@@ -1,15 +1,21 @@
 .rate-chart {
   display: grid;
-  gap: 1.5rem;
+  grid-template-areas: "stats" "selector" "chart";
+  gap: 1rem;
+  @media (min-width: 900px) {
+    grid-template-areas: "stats selector" "chart chart";
+    justify-content: space-between;
+    align-items: center;
+  }
 }
 .timeframe-selector {
+  grid-area: selector;
   padding: 0.125rem;
   border-radius: 8px;
   background-color: var(--neutral-700);
   color: var(--neutral-200);
   width: fit-content;
   display: flex;
-  margin-block-start: 1.25rem;
 }
 .timeframe-selector__tab {
   padding: 0.75rem 1rem;
@@ -28,4 +34,7 @@
     border-radius: 8px;
     color: var(--neutral-50);
   }
+}
+.rate-chart .react-aria-TabPanels {
+  grid-area: chart;
 }
