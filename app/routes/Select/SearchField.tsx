@@ -5,7 +5,6 @@ import {
   type SearchFieldProps as AriaSearchFieldProps,
 } from "react-aria-components/SearchField";
 import { Search } from "../icons.tsx";
-import "./SearchField.css";
 
 export interface SearchFieldProps extends AriaSearchFieldProps {
   placeholder?: string;

@@ -45,6 +45,13 @@ img {
   margin: 0;
   padding: 0;
 }
+*:focus-visible {
+  border-radius: 8px;
+  outline: none;
+  box-shadow:
+    0 0 0 2px var(--neutral-600),
+    0 0 0 4px var(--lime-500);
+}
 
 /* Utils */
 .currency-icon {

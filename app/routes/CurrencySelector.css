@@ -15,6 +15,9 @@
   font: var(--txt-preset-4);
   letter-spacing: 1px;
   color: var(--neutral-50);
+  &:hover {
+    background-color: var(--neutral-400);
+  }
 }
 .currency-selector__select-value {
   display: contents;
@@ -34,6 +37,65 @@
   display: flex;
   flex-direction: column;
 }
+.currency-selector__popover .react-aria-SearchField {
+  display: grid;
+  grid-template-areas: "icon input";
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  width: auto;
+  padding: 0 0.75rem;
+  gap: 0.625rem;
+
+  border: var(--neutral-200) solid 1px;
+  border-radius: 6px;
+  margin-block-end: 0.625rem;
+
+  .search-icon {
+    grid-area: icon;
+    z-index: 2;
+  }
+
+  &[data-disabled] .search-icon {
+    color: var(--text-color-disabled);
+  }
+
+  &:focus-within {
+    border-radius: 6px;
+    box-shadow:
+      0 0 0 2px var(--neutral-600),
+      0 0 0 4px var(--lime-500);
+  }
+
+  .react-aria-Input {
+    grid-area: input;
+    width: 100%;
+
+    background-color: transparent;
+    caret-color: var(--neutral-200);
+    border-radius: 0;
+    border: none;
+    outline: none;
+    padding: 0.75rem 0;
+    color: var(--neutral-50);
+
+    &::placeholder {
+      font: var(--txt-preset-5);
+      letter-spacing: 0.5px;
+    }
+
+    &:focus {
+      border: none;
+      outline: none;
+      box-shadow: none;
+    }
+
+    &::-webkit-search-cancel-button,
+    &::-webkit-search-decoration {
+      -webkit-appearance: none;
+    }
+  }
+}
+
 .currency-selector__section-header {
   display: flex;
   justify-content: space-between;

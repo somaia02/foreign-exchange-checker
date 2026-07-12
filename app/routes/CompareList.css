@@ -41,6 +41,10 @@
   border-radius: 8px;
   background-color: var(--neutral-600);
   color: var(--neutral-50);
+  cursor: pointer;
+  &:hover {
+    background-color: var(--neutral-500);
+  }
 }
 .comapre__favBtn--favorited {
   border-color: var(--lime-500);

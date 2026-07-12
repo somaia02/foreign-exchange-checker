@@ -49,18 +49,11 @@ export default function Converter() {
       ? displayFormat(receiveValue)
       : displayFormat(receiveValue) + ".";
   function handleSendValueChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setSendValue(e.target.value.replace(",", ""));
+    setSendValue(e.target.value.replaceAll(",", ""));
     setReceiveLastIsDot(false);
   }
   function handleReceiveValueChange(e: React.ChangeEvent<HTMLInputElement>) {
     if (data.rates![0] && e.target.value !== "") {
-      console.log("Typed: ", e.target.value);
-      console.log(
-        "Send",
-        String(
-          Number(e.target.value.replaceAll(",", "")) / data.rates![0].rate,
-        ),
-      );
       setSendValue(
         String(
           Number(e.target.value.replaceAll(",", "")) / data.rates![0].rate,

@@ -16,8 +16,14 @@
   text-transform: uppercase;
   font: var(--txt-preset-5);
   letter-spacing: 0.5px;
-  cursor: pointer;
+
   &[data-selected] {
+    background-color: var(--neutral-500);
+    border-radius: 8px;
+    color: var(--neutral-50);
+  }
+  &:not([data-selected]):hover {
+    cursor: pointer;
     background-color: var(--neutral-500);
     border-radius: 8px;
     color: var(--neutral-50);
