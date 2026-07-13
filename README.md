@@ -109,6 +109,7 @@ I learned a lot. I learned about server rendering. I got more familiar with Type
 - [Storing data in React Router](https://reactrouter.com/explanation/state-management#state-management) - This helped me understand the different options I have for storing data with their pros and cons.
 - [Infinite horizontal scroller](https://www.youtube.com/watch?v=KD1Yo8a_Qis) - I used this to learn how to make the scroller for the live market banner using CSS, JS.
 - [Generics in TypeScript](https://www.typescriptlang.org/docs/handbook/2/generics.html#handbook-content) I was using generics without really understanding them, e.g. with React `useState`. This article helped me understand how they are used and why we need them.
+- [Breakout buttons](https://piccalil.li/blog/create-a-semantic-break-out-button-to-make-an-entire-element-clickable/) The compare item is clickable but it also contains a favorite button which is not allowed. This article helped me make nested clickable items accessible.
 
 ### AI Collaboration
 

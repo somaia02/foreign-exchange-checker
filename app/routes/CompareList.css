@@ -1,5 +1,6 @@
 .compare__item {
   gap: 0.625rem;
+  position: relative;
 
   > * {
     display: flex;
@@ -9,6 +10,31 @@
   .currency-icon {
     width: 24px;
     height: 24px;
+  }
+  &:hover {
+    border-color: var(--neutral-300);
+  }
+  &:has(button.compare__item__btn:focus-visible) {
+    border-radius: 10px;
+    outline: var(--lime-500) solid 2px;
+    outline-offset: 2px;
+  }
+}
+.compare__item__btn {
+  border: none;
+  background-color: transparent;
+  color: currentColor;
+  font: inherit;
+  text-align: start;
+  &::before {
+    content: "";
+    inset: 0;
+    cursor: pointer;
+    position: absolute;
+    z-index: 1;
+  }
+  &:focus-visible {
+    outline: none;
   }
 }
 .compare-quote__symbol {
@@ -42,6 +68,7 @@
   background-color: var(--neutral-600);
   color: var(--neutral-50);
   cursor: pointer;
+  z-index: 2;
   &:hover {
     background-color: var(--neutral-500);
   }

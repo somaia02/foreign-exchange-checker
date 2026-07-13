@@ -5,11 +5,13 @@ import { displayFormat } from "./utils.tsx";
 
 import FlagIcon from "./FlagIcon";
 import FavoriteBtn from "./FavoriteBtn";
+import type { Key } from "react-aria-components";
 
 interface CompareListProps {
   quotes: string[];
   base: string;
   value: number;
+  setReceiveCurrency: (c: Key | null) => void;
 }
 
 interface CompareItemProps {
@@ -18,9 +20,15 @@ interface CompareItemProps {
   name: string;
   rate: number;
   value: number;
+  onClick: () => void;
 }
 
-export default function CompareList({ quotes, base, value }: CompareListProps) {
+export default function CompareList({
+  quotes,
+  base,
+  value,
+  setReceiveCurrency,
+}: CompareListProps) {
   const data = useLoaderData();
   const currencies = data.currencies;
   const rateData = useAllQuoteRates(base);
@@ -39,6 +47,7 @@ export default function CompareList({ quotes, base, value }: CompareListProps) {
             name={currencies[q].name}
             rate={rates[q]}
             value={value * rates[q]}
+            onClick={() => setReceiveCurrency(q)}
           />
         );
       })}
@@ -46,16 +55,23 @@ export default function CompareList({ quotes, base, value }: CompareListProps) {
   );
 }
 
-function CompareItem({ base, quote, name, rate, value }: CompareItemProps) {
+function CompareItem({
+  base,
+  quote,
+  name,
+  rate,
+  value,
+  onClick,
+}: CompareItemProps) {
   return (
     <div className="compare__item list-item">
-      <div>
+      <button onClick={onClick} className="compare__item__btn">
         <FlagIcon code={quote} />
         <div className="compare-quote">
           <p className="compare-quote__symbol">{quote}</p>
           <p className="compare-quote__name">{name}</p>
         </div>
-      </div>
+      </button>
       <div>
         <div className="compare__item__values">
           <p className="compare__receive-value">{displayFormat(value)}</p>

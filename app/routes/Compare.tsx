@@ -24,7 +24,7 @@ const QUOTES = [
 export default function Compare() {
   const currenciesInfo = useContext(CurrencyContext);
   if (currenciesInfo == null) return <p>Null context</p>;
-  const { sendCurrency, sendValue } = currenciesInfo;
+  const { sendCurrency, sendValue, setReceiveCurrency } = currenciesInfo;
   if (sendValue === "") return <EmptyTabPanel tab="compare" />;
 
   return (
@@ -34,6 +34,7 @@ export default function Compare() {
         quotes={QUOTES}
         base={String(sendCurrency)}
         value={Number(sendValue)}
+        setReceiveCurrency={setReceiveCurrency}
       />
     </div>
   );
