@@ -78,7 +78,7 @@ Your users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
+- Solution URL: [Solution on Frontend Mentor website](https://www.frontendmentor.io/solutions/foreign-exchange-currency-converter-with-react-router-FfmLcC6-Ee)
 - Live Site URL: [FX checker](https://foreign-exchange-checker-ten.vercel.app/)
 
 ## My process
