@@ -60,10 +60,7 @@
   }
 
   &:focus-within {
-    border-radius: 6px;
-    box-shadow:
-      0 0 0 2px var(--neutral-600),
-      0 0 0 4px var(--lime-500);
+    border-color: var(--lime-500);
   }
 
   .react-aria-Input {
