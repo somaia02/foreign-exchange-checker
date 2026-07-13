@@ -52,11 +52,19 @@
   background: transparent;
   color: var(--neutral-50);
   border: var(--lime-500) solid 1px;
+
   &:disabled {
-    border: var(--neutral-300) solid 1px;
+    border-color: var(--neutral-300);
     color: var(--neutral-200);
   }
-  &:not(:disabled):hover {
+  &:not(:disabled):not(.converter__log-btn--logged):hover {
     background-color: var(--lime-800);
   }
+}
+.converter__log-btn--logged {
+  background-color: var(--lime-500);
+  color: var(--neutral-900);
+  border-color: var(--lime-500);
+  display: flex;
+  gap: 0.5rem;
 }
