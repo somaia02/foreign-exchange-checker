@@ -4,6 +4,7 @@ body {
 .header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 1rem;
   font: var(--txt-preset-6);
   color: var(--neutral-200);

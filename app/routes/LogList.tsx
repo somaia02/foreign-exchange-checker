@@ -3,6 +3,7 @@ import { Delete, ArrowRight } from "./icons";
 import ms from "ms";
 
 import "./LogList.css";
+import { displayFormat } from "./utils";
 
 export interface logItem {
   time: number;
@@ -55,11 +56,9 @@ function LogItem({
         </p>
       </div>
       <div className="log-item__right">
-        <p className="log-item__send-value">
-          {log.baseAmount.toLocaleString("en-US")}
-        </p>
+        <p className="log-item__send-value">{displayFormat(log.baseAmount)}</p>
         <p className="log-item__receive-value">
-          {log.quoteAmount.toLocaleString("en-US")}
+          {displayFormat(log.quoteAmount)}
         </p>
       </div>
       <button
