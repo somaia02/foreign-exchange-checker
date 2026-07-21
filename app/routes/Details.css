@@ -70,6 +70,7 @@
   text-transform: uppercase;
   display: flex;
   gap: 0.5rem;
+  cursor: pointer;
   &:not(:focus-visible)[data-selected] {
     border-bottom: var(--lime-500) solid 1px;
   }

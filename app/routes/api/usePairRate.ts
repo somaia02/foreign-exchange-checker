@@ -20,11 +20,13 @@ export function usePairRate({ base, quote, date, from }: usePairParams) {
   const [error, setError] = useState("");
   const data = { rates: rates, error: error, loading: !rates };
   const currenciesInfo = useContext(CurrencyContext);
+  let queryBase = base;
+  let queryQuote = quote;
   if (!currenciesInfo) {
     setError("Null context");
   } else {
-    base = base ?? String(currenciesInfo.sendCurrency);
-    quote = quote ?? String(currenciesInfo.receiveCurrency);
+    queryBase = base ?? String(currenciesInfo.sendCurrency);
+    queryQuote = quote ?? String(currenciesInfo.receiveCurrency);
   }
 
   useEffect(() => {
@@ -33,8 +35,8 @@ export function usePairRate({ base, quote, date, from }: usePairParams) {
       try {
         const dateQuery = date ? `?date=${date}` : "";
         const url = from
-          ? `https://api.frankfurter.dev/v2/rates/?base=${base}&quotes=${quote}&from=${from}`
-          : `https://api.frankfurter.dev/v2/rate/${base}/${quote}${dateQuery}`;
+          ? `https://api.frankfurter.dev/v2/rates/?base=${queryBase}&quotes=${queryQuote}&from=${from}`
+          : `https://api.frankfurter.dev/v2/rate/${queryBase}/${queryQuote}${dateQuery}`;
         const response = await fetch(url, { signal: controller.signal });
         if (!response.ok) {
           const errorData = await response.json();
@@ -55,6 +57,6 @@ export function usePairRate({ base, quote, date, from }: usePairParams) {
     return () => {
       controller.abort();
     };
-  }, [base, quote, date, from]);
+  }, [queryBase, queryQuote, date, from, data.error]);
   return data;
 }

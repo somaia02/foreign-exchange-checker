@@ -21,9 +21,9 @@ export default function ConverterFooter({
   receiveValue,
 }: ConverterFooterProps) {
   const [logBtnClicked, setLogBtnClicked] = useState(false);
-  let fetcher = useFetcher();
+  const fetcher = useFetcher();
   const data = useLoaderData();
-  let conversionLogs = data.conversionLogs;
+  const conversionLogs = data.conversionLogs;
   const clickedLogBtn = (
     <>
       <Check />

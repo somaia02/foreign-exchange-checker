@@ -1,14 +1,9 @@
-import { useEffect, useState } from "react";
 import Chart, { type Timeframe } from "./Chart.client";
 import EmptyTabPanel from "./EmptyTabPanel";
 import "./ChartPanel.css";
 import { usePairRate } from "./api/usePairRate";
 export default function ChartPanel({ timeframe }: { timeframe: Timeframe }) {
-  const [didMount, setDidMount] = useState(false);
-
-  useEffect(() => {
-    setDidMount(true);
-  }, []);
+  const didMount = typeof window !== "undefined";
   const chart = didMount ? (
     <Chart timeframe={timeframe} />
   ) : (

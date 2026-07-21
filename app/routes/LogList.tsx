@@ -4,6 +4,7 @@ import ms from "ms";
 
 import "./LogList.css";
 import { displayFormat } from "./utils";
+import { useEffect, useState } from "react";
 
 export interface logItem {
   time: number;
@@ -35,7 +36,14 @@ function LogItem({
   log: logItem;
   onDelete: (t: "all" | number) => void;
 }) {
-  const elapsed = Date.now() - log.time;
+  const [timeNow, setTimeNow] = useState(() => Date.now());
+  const elapsed = timeNow - log.time;
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimeNow(Date.now());
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
   let displayedTime: string;
   if (elapsed > ms("1d")) {
     displayedTime = Intl.DateTimeFormat("en-US", {

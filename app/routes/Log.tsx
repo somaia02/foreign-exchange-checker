@@ -4,18 +4,19 @@ import "./Log.css";
 import EmptyTabPanel from "./EmptyTabPanel";
 
 export default function Log() {
-  let fetcher = useFetcher();
+  const fetcher = useFetcher();
   const data = useLoaderData();
-  let conversionLogs = data.conversionLogs;
+  const conversionLogs = data.conversionLogs;
   if (conversionLogs.length === 0) return <EmptyTabPanel tab="log" />;
 
   function handleDelete(time: "all" | number) {
-    if (time == "all") conversionLogs = [];
-    else {
-      conversionLogs = conversionLogs.filter((l: logItem) => l.time != time);
-    }
+    const newLogs =
+      time == "all"
+        ? []
+        : conversionLogs.filter((l: logItem) => l.time != time);
+
     fetcher.submit(
-      { conversionLogs },
+      { newLogs },
       {
         method: "post",
         encType: "application/json",

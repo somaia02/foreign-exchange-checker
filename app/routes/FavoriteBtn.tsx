@@ -15,7 +15,7 @@ export default function FavoriteBtn({
 }: FavoriteBtnProps) {
   const fetcher = useFetcher();
   const data = useLoaderData();
-  let favoritePairs = data.favoritePairs;
+  const favoritePairs = data.favoritePairs;
   const favorited = favoritePairs.includes(`${base},${quote}`);
   const favBtnClassName = favorited ? `${className}--favorited` : "";
   const favBtnIcon = favorited ? <StarFilledIcon /> : <StarIcon />;
@@ -23,13 +23,13 @@ export default function FavoriteBtn({
 
   function handleFavoriteClick() {
     const pair = `${base},${quote}`;
-    if (favorited) {
-      favoritePairs = favoritePairs.filter((item: string) => item !== pair);
-    } else {
-      favoritePairs.push(pair);
-    }
+    favoritePairs.push(pair);
+    const newFavorites = favorited
+      ? favoritePairs.filter((item: string) => item !== pair)
+      : favoritePairs;
+
     fetcher.submit(
-      { favoritePairs },
+      { newFavorites },
       {
         method: "post",
         encType: "application/json",

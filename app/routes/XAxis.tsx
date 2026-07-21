@@ -15,11 +15,11 @@ export default function XAxis({
   height,
 }: XAxisProps) {
   const gx = useRef<SVGGElement>(null);
-  const xTickFormatter = (value: Date | d3.NumberValue) =>
-    d3.utcFormat(dateFormat)(value as Date);
 
   useEffect(() => {
     if (!gx.current) return;
+    const xTickFormatter = (value: Date | d3.NumberValue) =>
+      d3.utcFormat(dateFormat)(value as Date);
 
     d3.select(gx.current).call(
       d3.axisBottom(x).ticks(tickCount).tickFormat(xTickFormatter),

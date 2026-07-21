@@ -39,7 +39,7 @@ export function useAllQuoteRates(base: string) {
         setError(getError(e, "message"));
       }
     }
-    if (data.error == "") fetchData();
+    fetchData();
 
     return () => {
       controller.abort();

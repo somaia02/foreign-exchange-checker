@@ -19,6 +19,26 @@ export default defineConfig([
     languageOptions: {
       globals: globals.browser,
     },
+    rules: {
+      "react-refresh/only-export-components": [
+        "warn",
+        {
+          allowExportNames: [
+            "loader",
+            "clientLoader",
+            "action",
+            "clientAction",
+            "ErrorBoundary",
+            "HydrateFallback",
+            "headers",
+            "handle",
+            "links",
+            "meta",
+            "shouldRevalidate",
+          ],
+        },
+      ],
+    },
   },
   eslintConfigPrettier,
 ]);

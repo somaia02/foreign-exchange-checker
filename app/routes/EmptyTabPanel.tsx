@@ -40,15 +40,16 @@ function HistoryDetails() {
   } else {
     base = base ?? String(currenciesInfo.sendCurrency);
     quote = quote ?? String(currenciesInfo.receiveCurrency);
+
+    content = (
+      <>
+        We couldn't load rate history for{" "}
+        <span className="empty-panel__currencies">
+          {base}/{quote}
+        </span>{" "}
+        right now. This usually clears up in a minute.
+      </>
+    );
   }
-  content = (
-    <>
-      We couldn't load rate history for{" "}
-      <span className="empty-panel__currencies">
-        {base}/{quote}
-      </span>{" "}
-      right now. This usually clears up in a minute.
-    </>
-  );
   return content;
 }
