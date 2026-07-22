@@ -1,5 +1,16 @@
 .converter {
   margin-block-end: 2.5rem;
+  .exchange {
+    display: none;
+  }
+  @media (min-width: 600px) {
+    .exchange {
+      display: block;
+    }
+    .exchange-vertical {
+      display: none;
+    }
+  }
 }
 .converter__title {
   margin-block-end: 1rem;
@@ -30,6 +41,7 @@
   border-radius: 8px;
   border: var(--neutral-500) solid 1px;
   background-color: var(--neutral-600);
+  color: inherit;
   display: grid;
   place-content: center;
   width: 3rem;

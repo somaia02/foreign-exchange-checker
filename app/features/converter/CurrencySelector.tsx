@@ -1,17 +1,18 @@
 import { Autocomplete, useFilter } from "react-aria-components/Autocomplete";
 import { Select, SelectValue } from "react-aria-components/Select";
 import { type Key } from "react-aria-components";
-import { Header, ListBoxSection } from "./Select/ListBox.tsx";
-import { Button } from "./Select/Button.tsx";
-import { SelectListBox, SelectItem } from "./Select/Select.tsx";
-import { Popover } from "./Select/Popover.tsx";
-import { SearchField } from "./Select/SearchField.tsx";
-import { ChevronDown, Check } from "./icons.tsx";
 import { type RefObject } from "react";
 import { useLoaderData } from "react-router";
+
+import type { dataItem } from "../../lib/api/api.ts";
+import { Header, ListBoxSection } from "../../components/Select/ListBox.tsx";
+import { Button } from "../../components/Select/Button.tsx";
+import { SelectListBox, SelectItem } from "../../components/Select/Select.tsx";
+import { Popover } from "../../components/Select/Popover.tsx";
+import { SearchField } from "../../components/Select/SearchField.tsx";
+import { ChevronDown, Check } from "../../components/icons.tsx";
+import FlagIcon from "../../components/FlagIcon.tsx";
 import "./CurrencySelector.css";
-import type { dataItem } from "./api/api.ts";
-import FlagIcon from "./FlagIcon.tsx";
 
 const POPULAR = ["usd", "eur", "gbp"];
 

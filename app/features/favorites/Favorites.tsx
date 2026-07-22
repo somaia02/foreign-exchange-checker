@@ -1,7 +1,8 @@
-import "./Favorites.css";
 import { useLoaderData } from "react-router";
+
+import EmptyTabPanel from "../../components/EmptyTabPanel";
 import FavoritesList from "./FavoritesList";
-import EmptyTabPanel from "./EmptyTabPanel";
+import "./Favorites.css";
 
 export default function Favorites() {
   const data = useLoaderData();

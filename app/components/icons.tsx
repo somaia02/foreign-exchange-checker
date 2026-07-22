@@ -132,3 +132,43 @@ export function Delete() {
     </svg>
   );
 }
+export function Exchange() {
+  return (
+    <svg
+      className="exchange"
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      fill="none"
+      viewBox="0 0 20 20"
+    >
+      <path
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="1.5"
+        d="M6 9 2 5l4-4M2 5h16m-4 6 4 4-4 4m4-4H2"
+      />
+    </svg>
+  );
+}
+export function ExchangeVertical() {
+  return (
+    <svg
+      className="exchange-vertical"
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      fill="none"
+      viewBox="0 0 20 20"
+    >
+      <path
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="1.5"
+        d="m11 6 4-4 4 4m-4-4v16m-6-4-4 4-4-4m4 4V2"
+      />
+    </svg>
+  );
+}

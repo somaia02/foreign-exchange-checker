@@ -1,7 +1,8 @@
+import { usePairRate } from "../../lib/api/usePairRate";
+import EmptyTabPanel from "../../components/EmptyTabPanel";
 import Chart, { type Timeframe } from "./Chart.client";
-import EmptyTabPanel from "./EmptyTabPanel";
 import "./ChartPanel.css";
-import { usePairRate } from "./api/usePairRate";
+
 export default function ChartPanel({ timeframe }: { timeframe: Timeframe }) {
   const didMount = typeof window !== "undefined";
   const chart = didMount ? (

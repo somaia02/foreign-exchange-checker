@@ -1,7 +1,7 @@
+import { usePairRate } from "../../lib/api/usePairRate";
+import FavoriteBtn from "../../components/FavoriteBtn";
+import { ArrowRight } from "../../components/icons";
 import "./FavoritesList.css";
-import FavoriteBtn from "./FavoriteBtn";
-import { ArrowRight } from "./icons";
-import { usePairRate } from "./api/usePairRate";
 
 export default function FavoritesList({ favorites }: { favorites: string[] }) {
   return (

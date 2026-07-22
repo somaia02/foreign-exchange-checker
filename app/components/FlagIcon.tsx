@@ -1,4 +1,5 @@
-import { flagNames } from "./utils.tsx";
+import { flagNames } from "../lib/utils.tsx";
+
 const baseUrl = import.meta.env.BASE_URL;
 
 export default function FlagIcon({ code }: { code: string }) {

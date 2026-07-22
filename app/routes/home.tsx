@@ -3,14 +3,10 @@ import { useState } from "react";
 import type { Route } from "./+types/home.ts";
 import { type Key } from "react-aria-components";
 
-import { saved } from "./cookies.ts";
-import logo from "../assets/images/logo.svg";
-import LiveMarket from "./LiveMarket.tsx";
-import Converter from "./Converter.tsx";
-import Details from "./Details.tsx";
-import { fetchCurrencies, fetchAllRates } from "./api/api.ts";
-import { CurrencyContext } from "./CurrencyContext.ts";
-import "./home.css";
+import { saved } from "../lib/cookies.ts";
+import { fetchCurrencies, fetchAllRates } from "../lib/api/api.ts";
+import { CurrencyContext } from "../lib/CurrencyContext.ts";
+import Homepage from "~/features/homepage/Homepage.tsx";
 
 export async function loader({ request }: Route.LoaderArgs) {
   const currencies = await fetchCurrencies();
@@ -47,7 +43,7 @@ export async function action({ request }: Route.ActionArgs) {
   );
 }
 
-export default function App({ loaderData }: Route.ComponentProps) {
+export default function App() {
   const [sendCurrency, setSendCurrency] = useState<Key | null>("usd");
   const [receiveCurrency, setReceiveCurrency] = useState<Key | null>("eur");
   const [sendValue, setSendValue] = useState<string>("");
@@ -61,27 +57,7 @@ export default function App({ loaderData }: Route.ComponentProps) {
   };
   return (
     <CurrencyContext value={currencies}>
-      <Header count={Object.values(loaderData.currencies).length} />
-      <LiveMarket />
-      <Content />
+      <Homepage />
     </CurrencyContext>
-  );
-}
-
-function Header({ count }: { count: number }) {
-  return (
-    <header className="header">
-      <img src={logo} alt="FX_Checker logo" />
-      <p className="header__info">{count} CURRENCIES · EOD · ECB DATA</p>
-    </header>
-  );
-}
-
-function Content() {
-  return (
-    <div className="content">
-      <Converter />
-      <Details />
-    </div>
   );
 }

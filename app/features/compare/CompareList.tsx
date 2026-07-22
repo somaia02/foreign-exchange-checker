@@ -1,11 +1,11 @@
 import { useLoaderData } from "react-router";
-import "./CompareList.css";
-import { useAllQuoteRates } from "./api/useAllQuoteRates";
-import { displayFormat } from "./utils.tsx";
-
-import FlagIcon from "./FlagIcon";
-import FavoriteBtn from "./FavoriteBtn";
 import type { Key } from "react-aria-components";
+
+import { useAllQuoteRates } from "../../lib/api/useAllQuoteRates.ts";
+import { displayFormat } from "../../lib/utils.tsx";
+import FlagIcon from "../../components/FlagIcon.tsx";
+import FavoriteBtn from "../../components/FavoriteBtn.tsx";
+import "./CompareList.css";
 
 interface CompareListProps {
   quotes: string[];

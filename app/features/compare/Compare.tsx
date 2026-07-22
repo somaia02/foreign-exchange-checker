@@ -1,11 +1,11 @@
 import { useContext } from "react";
-import { CurrencyContext } from "./CurrencyContext";
 import { type Key } from "react-aria-components";
-import CompareList from "./CompareList";
-import { displayFormat } from "./utils.tsx";
 
+import { CurrencyContext } from "../../lib/CurrencyContext.ts";
+import { displayFormat } from "../../lib/utils.tsx";
+import EmptyTabPanel from "../../components/EmptyTabPanel.tsx";
+import CompareList from "./CompareList";
 import "./Compare.css";
-import EmptyTabPanel from "./EmptyTabPanel.tsx";
 
 const QUOTES = [
   "egp",

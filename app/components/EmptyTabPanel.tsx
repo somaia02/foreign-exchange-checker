@@ -1,6 +1,7 @@
 import { useContext } from "react";
+import { CurrencyContext } from "../lib/CurrencyContext";
 import "./EmptyTabPanel.css";
-import { CurrencyContext } from "./CurrencyContext";
+
 type Tab = "history" | "compare" | "favorites" | "log";
 
 const titles = {
@@ -9,6 +10,7 @@ const titles = {
   favorites: "No pinned pairs yet",
   log: "No conversions logged yet",
 };
+
 const details = {
   history: <HistoryDetails />,
   compare:

@@ -1,4 +1,4 @@
-import { usePairRate } from "./api/usePairRate";
+import { usePairRate } from "../../lib/api/usePairRate";
 import "./ConversionStats.css";
 
 export default function ConversionStats() {

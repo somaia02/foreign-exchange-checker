@@ -1,7 +1,8 @@
 import { useFetcher, useLoaderData } from "react-router";
+
+import EmptyTabPanel from "../../components/EmptyTabPanel";
 import LogList, { type logItem } from "./LogList";
 import "./Log.css";
-import EmptyTabPanel from "./EmptyTabPanel";
 
 export default function Log() {
   const fetcher = useFetcher();
@@ -16,7 +17,7 @@ export default function Log() {
         : conversionLogs.filter((l: logItem) => l.time != time);
 
     fetcher.submit(
-      { newLogs },
+      { conversionLogs: newLogs },
       {
         method: "post",
         encType: "application/json",

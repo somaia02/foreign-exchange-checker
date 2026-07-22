@@ -1,9 +1,10 @@
 import { type Key } from "react-aria-components";
 import { useFetcher, useLoaderData } from "react-router";
-import "./ConverterFooter.css";
-import FavoriteBtn from "./FavoriteBtn.tsx";
-import { Check } from "./icons.tsx";
 import { useEffect, useState } from "react";
+
+import FavoriteBtn from "../../components/FavoriteBtn.tsx";
+import { Check } from "../../components/icons.tsx";
+import "./ConverterFooter.css";
 
 interface ConverterFooterProps {
   info: string;

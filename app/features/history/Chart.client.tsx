@@ -1,12 +1,12 @@
 import * as d3 from "d3";
 import { useEffect, useRef, useState } from "react";
-import { useWindowWidth } from "./useWindowWidth";
-import EmptyTabPanel from "./EmptyTabPanel";
 
-import "./Chart.css";
-import { usePairRate } from "./api/usePairRate";
+import { useWindowWidth } from "../../lib/useWindowWidth";
+import { usePairRate } from "../../lib/api/usePairRate";
+import EmptyTabPanel from "../../components/EmptyTabPanel";
 import XAxis from "./XAxis";
 import YAxis from "./YAxis";
+import "./Chart.css";
 
 const duration = {
   "1d": 2,

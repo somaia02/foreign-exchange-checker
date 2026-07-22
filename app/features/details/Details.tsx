@@ -1,13 +1,14 @@
 import type { Key } from "react-aria-components";
 import { useState } from "react";
-import { Select, SelectItem } from "./Select/Select";
-import History from "./History";
-import Compare from "./Compare";
-import Favorites from "./Favorites";
-import Log from "./Log";
-import "./Details.css";
 import { useLoaderData } from "react-router";
-import { Tabs, TabList, Tab, TabPanels, TabPanel } from "./Tabs";
+
+import { Select, SelectItem } from "../../components/Select/Select";
+import { Tabs, TabList, Tab, TabPanels, TabPanel } from "../../components/Tabs";
+import History from "../history/History";
+import Compare from "../compare/Compare";
+import Favorites from "../favorites/Favorites";
+import Log from "../log/Log";
+import "./Details.css";
 
 type Tab = "history" | "compare" | "favorites" | "log";
 interface DetailsTabsProps {

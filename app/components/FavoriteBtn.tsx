@@ -23,13 +23,11 @@ export default function FavoriteBtn({
 
   function handleFavoriteClick() {
     const pair = `${base},${quote}`;
-    favoritePairs.push(pair);
     const newFavorites = favorited
       ? favoritePairs.filter((item: string) => item !== pair)
-      : favoritePairs;
-
+      : [...favoritePairs, pair];
     fetcher.submit(
-      { newFavorites },
+      { favoritePairs: newFavorites },
       {
         method: "post",
         encType: "application/json",

@@ -6,10 +6,10 @@ import {
   SelectValue,
   type ListBoxProps,
 } from "react-aria-components/Select";
-import { Button } from "./Button";
-import { DropdownItem, DropdownListBox } from "./ListBox";
+import { Button } from "./Button.tsx";
+import { DropdownItem, DropdownListBox } from "./ListBox.tsx";
 import { DownArrow } from "../icons.tsx";
-import { Popover } from "./Popover";
+import { Popover } from "./Popover.tsx";
 import "./Select.css";
 
 export interface SelectProps<T, M extends "single" | "multiple"> extends Omit<

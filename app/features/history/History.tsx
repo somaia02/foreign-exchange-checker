@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { type Key } from "react-aria-components";
+
+import { Tabs, TabList, Tab, TabPanels, TabPanel } from "../../components/Tabs";
 import ConversionStats from "./ConversionStats";
 import ChartPanel from "./ChartPanel";
 import type { Timeframe } from "./Chart.client";
-import { Tabs, TabList, Tab, TabPanels, TabPanel } from "./Tabs";
 import "./History.css";
 
 interface RateChartProps {

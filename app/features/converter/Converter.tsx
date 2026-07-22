@@ -1,11 +1,12 @@
-import convertIcon from "../assets/images/icon-exchange-vertical.svg";
-import CurrencySelector from "./CurrencySelector.tsx";
-import ConverterFooter from "./ConverterFooter.tsx";
 import { type Key } from "react-aria-components";
 import { useContext, useRef, useState } from "react";
-import { usePairRate } from "./api/usePairRate.ts";
-import { CurrencyContext } from "./CurrencyContext.ts";
-import { displayFormat } from "./utils.tsx";
+
+import { usePairRate } from "../../lib/api/usePairRate.ts";
+import { CurrencyContext } from "../../lib/CurrencyContext.ts";
+import { displayFormat } from "../../lib/utils.tsx";
+import { Exchange, ExchangeVertical } from "~/components/icons.tsx";
+import CurrencySelector from "./CurrencySelector.tsx";
+import ConverterFooter from "./ConverterFooter.tsx";
 import "./Converter.css";
 
 interface CalculatorItemProps {
@@ -94,7 +95,8 @@ export default function Converter() {
           aria-label="Swap currencies"
           onClick={handleSwapClick}
         >
-          <img src={convertIcon} alt="Up and down exchange arrows" />
+          <Exchange />
+          <ExchangeVertical />
         </button>
         <CalculatorItem
           title="receive"
