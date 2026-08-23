@@ -2,7 +2,7 @@ import type { Key } from "react-aria-components";
 import { useState } from "react";
 import { useLoaderData } from "react-router";
 
-import { Select, SelectItem } from "../../components/Select/Select";
+import { Select, SelectItem } from "../../components/Select";
 import { Tabs, TabList, Tab, TabPanels, TabPanel } from "../../components/Tabs";
 import History from "../history/History";
 import Compare from "../compare/Compare";

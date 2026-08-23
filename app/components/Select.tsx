@@ -1,17 +1,16 @@
 "use client";
 import {
-  type ListBoxItemProps,
   Select as AriaSelect,
   type SelectProps as AriaSelectProps,
   SelectValue,
-  type ListBoxProps,
 } from "react-aria-components/Select";
-import { Button } from "./Button.tsx";
-import { DropdownItem, DropdownListBox } from "./ListBox.tsx";
-import { DownArrow } from "../icons.tsx";
-import { Popover } from "./Popover.tsx";
-import "./Select.css";
-
+import { Button } from "react-aria-components/Button";
+import {
+  ListBoxItem as SelectItem,
+  ListBox as SelectListBox,
+} from "react-aria-components/ListBox";
+import { DownArrow } from "./icons.tsx";
+import { Popover } from "react-aria-components/Popover";
 export interface SelectProps<T, M extends "single" | "multiple"> extends Omit<
   AriaSelectProps<T, M>,
   "children"
@@ -38,10 +37,4 @@ export function Select<T, M extends "single" | "multiple" = "single">({
   );
 }
 
-export function SelectListBox<T>(props: ListBoxProps<T>) {
-  return <DropdownListBox {...props} />;
-}
-
-export function SelectItem(props: ListBoxItemProps) {
-  return <DropdownItem {...props} />;
-}
+export { SelectItem };

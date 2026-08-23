@@ -92,7 +92,10 @@
     }
   }
 }
-
+.currency-selector__popover .react-aria-ListBox {
+  max-height: 400px;
+  overflow: auto;
+}
 .currency-selector__section-header {
   display: flex;
   justify-content: space-between;
@@ -103,7 +106,7 @@
   background-color: var(--neutral-600);
 
   position: sticky;
-  top: 0px;
+  top: -0.5px;
   z-index: 1;
 }
 .currency-selector__currency-symbol {
@@ -129,5 +132,11 @@
     .check-icon {
       margin-inline-start: auto;
     }
+  }
+
+  &[data-focused] {
+    border: var(--neutral-200) solid 1px;
+    border-radius: 4px;
+    outline: none;
   }
 }

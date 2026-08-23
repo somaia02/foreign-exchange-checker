@@ -1,15 +1,19 @@
 import { Autocomplete, useFilter } from "react-aria-components/Autocomplete";
 import { Select, SelectValue } from "react-aria-components/Select";
+import { Popover } from "react-aria-components/Popover";
+import { Button } from "react-aria-components/Button";
+import {
+  Header,
+  ListBoxSection,
+  ListBoxItem as SelectItem,
+  ListBox as SelectListBox,
+} from "react-aria-components/ListBox";
 import { type Key } from "react-aria-components";
 import { type RefObject } from "react";
 import { useLoaderData } from "react-router";
 
 import type { dataItem } from "../../lib/api/api.ts";
-import { Header, ListBoxSection } from "../../components/Select/ListBox.tsx";
-import { Button } from "../../components/Select/Button.tsx";
-import { SelectListBox, SelectItem } from "../../components/Select/Select.tsx";
-import { Popover } from "../../components/Select/Popover.tsx";
-import { SearchField } from "../../components/Select/SearchField.tsx";
+import { SearchField } from "../../components/SearchField.tsx";
 import { ChevronDown, Check } from "../../components/icons.tsx";
 import FlagIcon from "../../components/FlagIcon.tsx";
 import "./CurrencySelector.css";
@@ -70,7 +74,11 @@ export default function CurrencySelector({
         </SelectValue>
         <ChevronDown />
       </Button>
-      <Popover triggerRef={triggerRef} className="currency-selector__popover">
+      <Popover
+        triggerRef={triggerRef}
+        className="currency-selector__popover"
+        placement="bottom right"
+      >
         <Autocomplete filter={contains}>
           <SearchField
             aria-label="Search currencies"
