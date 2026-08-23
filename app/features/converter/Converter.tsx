@@ -1,8 +1,8 @@
 import { type Key } from "react-aria-components";
-import { useContext, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 import { usePairRate } from "../../lib/api/usePairRate.ts";
-import { CurrencyContext } from "../../lib/CurrencyContext.ts";
+import { useCurrencies } from "../../lib/CurrencyContext.ts";
 import { displayFormat } from "../../lib/utils.tsx";
 import { Exchange, ExchangeVertical } from "~/components/icons.tsx";
 import CurrencySelector from "./CurrencySelector.tsx";
@@ -21,8 +21,7 @@ interface CalculatorItemProps {
 export default function Converter() {
   const data = usePairRate({});
   const [receiveLastIsDot, setReceiveLastIsDot] = useState(false);
-  const currenciesInfo = useContext(CurrencyContext);
-  if (currenciesInfo == null) return <p>Null context</p>;
+  const currenciesInfo = useCurrencies();
   const {
     sendCurrency,
     receiveCurrency,

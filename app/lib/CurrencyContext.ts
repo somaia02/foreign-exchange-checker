@@ -1,5 +1,5 @@
 import { type Key } from "react-aria-components";
-import { createContext } from "react";
+import { createContext, useContext } from "react";
 
 interface Currencies {
   sendCurrency: Key | null;
@@ -10,3 +10,13 @@ interface Currencies {
   setSendValue: (v: string) => void;
 }
 export const CurrencyContext = createContext<Currencies | null>(null);
+
+export function useCurrencies() {
+  const context = useContext(CurrencyContext);
+
+  if (!context) {
+    throw new Error("useCurrencies must be used within CurrencyProvider");
+  }
+
+  return context;
+}

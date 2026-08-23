@@ -1,5 +1,4 @@
-import { useContext } from "react";
-import { CurrencyContext } from "../lib/CurrencyContext";
+import { useCurrencies } from "../lib/CurrencyContext";
 import "./EmptyTabPanel.css";
 
 type Tab = "history" | "compare" | "favorites" | "log";
@@ -35,23 +34,17 @@ export default function EmptyTabPanel({
   );
 }
 function HistoryDetails() {
-  let base, quote, content;
-  const currenciesInfo = useContext(CurrencyContext);
-  if (!currenciesInfo) {
-    content = "Context error";
-  } else {
-    base = base ?? String(currenciesInfo.sendCurrency);
-    quote = quote ?? String(currenciesInfo.receiveCurrency);
-
-    content = (
-      <>
-        We couldn't load rate history for{" "}
-        <span className="empty-panel__currencies">
-          {base}/{quote}
-        </span>{" "}
-        right now. This usually clears up in a minute.
-      </>
-    );
-  }
+  const currenciesInfo = useCurrencies();
+  const base = String(currenciesInfo.sendCurrency);
+  const quote = String(currenciesInfo.receiveCurrency);
+  const content = (
+    <>
+      We couldn't load rate history for{" "}
+      <span className="empty-panel__currencies">
+        {base}/{quote}
+      </span>{" "}
+      right now. This usually clears up in a minute.
+    </>
+  );
   return content;
 }

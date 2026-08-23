@@ -1,7 +1,6 @@
-import { useContext } from "react";
 import { type Key } from "react-aria-components";
 
-import { CurrencyContext } from "../../lib/CurrencyContext.ts";
+import { useCurrencies } from "../../lib/CurrencyContext.ts";
 import { displayFormat } from "../../lib/utils.tsx";
 import EmptyTabPanel from "../../components/EmptyTabPanel.tsx";
 import CompareList from "./CompareList";
@@ -22,8 +21,7 @@ const QUOTES = [
 ];
 
 export default function Compare() {
-  const currenciesInfo = useContext(CurrencyContext);
-  if (currenciesInfo == null) return <p>Null context</p>;
+  const currenciesInfo = useCurrencies();
   const { sendCurrency, sendValue, setReceiveCurrency } = currenciesInfo;
   if (sendValue === "") return <EmptyTabPanel tab="compare" />;
 

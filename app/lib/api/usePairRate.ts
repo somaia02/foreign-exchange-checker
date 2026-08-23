@@ -1,6 +1,6 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import { getError } from "../utils";
-import { CurrencyContext } from "../CurrencyContext";
+import { useCurrencies } from "../CurrencyContext";
 
 interface dataItem {
   date: string;
@@ -19,15 +19,9 @@ export function usePairRate({ base, quote, date, from }: usePairParams) {
   const [rates, setRates] = useState<dataItem[] | null>(null);
   const [error, setError] = useState("");
   const data = { rates: rates, error: error, loading: !rates };
-  const currenciesInfo = useContext(CurrencyContext);
-  let queryBase = base;
-  let queryQuote = quote;
-  if (!currenciesInfo) {
-    setError("Null context");
-  } else {
-    queryBase = base ?? String(currenciesInfo.sendCurrency);
-    queryQuote = quote ?? String(currenciesInfo.receiveCurrency);
-  }
+  const currenciesInfo = useCurrencies();
+  const queryBase = base ?? String(currenciesInfo.sendCurrency);
+  const queryQuote = quote ?? String(currenciesInfo.receiveCurrency);
 
   useEffect(() => {
     const controller = new AbortController();
