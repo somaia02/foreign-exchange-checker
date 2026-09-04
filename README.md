@@ -16,8 +16,6 @@ This is a solution to the [FX Checker challenge on Frontend Mentor](https://www.
   - [AI Collaboration](#ai-collaboration)
 - [Acknowledgments](#acknowledgments)
 
-**Note: Delete this note and update the table of contents based on what sections you keep.**
-
 ## Overview
 
 ### The challenge
@@ -94,6 +92,7 @@ Your users should be able to:
 - [React Router](https://reactrouter.com/home) - React framework
 - [React Aria](https://react-aria.adobe.com/) - For UI components
 - [D3.js] (https://d3js.org/) - For Chart
+- [Frankfurter API] (https://frankfurter.dev/) - For exchange rates
 
 ### What I learned
 

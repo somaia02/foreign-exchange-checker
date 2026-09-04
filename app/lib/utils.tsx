@@ -19,6 +19,16 @@ export function displayFormat(val: string | number) {
   }
 }
 
+export async function fetchData(url: string, signal?: AbortSignal) {
+  const response = await fetch(url, { signal });
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message);
+  }
+  const json = await response.json();
+  return json;
+}
+
 export const flagNames = [
   "ae",
   "ar",

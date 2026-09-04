@@ -40,9 +40,8 @@ export default function ConverterFooter({
       baseAmount: sendValue,
       quoteAmount: receiveValue,
     };
-    conversionLogs.push(logInfo);
     fetcher.submit(
-      { conversionLogs },
+      { conversionLogs: [...conversionLogs, logInfo] },
       {
         method: "post",
         encType: "application/json",

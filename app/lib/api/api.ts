@@ -1,4 +1,7 @@
+import { fetchData } from "../utils";
+
 const BASE = "EGP";
+
 export interface dataItem {
   iso_code: string;
   iso_numeric: string;
@@ -7,6 +10,7 @@ export interface dataItem {
   start_date: string;
   end_date: string;
 }
+
 export async function fetchCurrencies() {
   const currencies = await fetchData(
     "https://api.frankfurter.dev/v2/currencies",
@@ -28,15 +32,6 @@ export async function fetchAllRates() {
   return [rates, prevRates];
 }
 
-async function fetchData(url: string) {
-  const response = await fetch(url);
-  if (!response.ok) {
-    const errorData = await response.json();
-    throw new Error(errorData.message);
-  }
-  const json = await response.json();
-  return json;
-}
 function getPrevDate(currDate: string) {
   const latestDate = new Date(currDate);
   const prevDate = new Date(latestDate);

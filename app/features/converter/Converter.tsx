@@ -129,7 +129,9 @@ function CalculatorItem({
   const color = title === "send" ? "white" : "lime";
   return (
     <div className="calculator-item" ref={triggerRef}>
-      <p className="calculator-item__title">{title}</p>
+      <p id={`${title}-title`} className="calculator-item__title">
+        {title}
+      </p>
       <div className="calculator-item__options">
         <input
           placeholder="0"
@@ -138,6 +140,7 @@ function CalculatorItem({
           value={value}
           className={`calculator-item__input color-${color}`}
           onChange={onValueChange}
+          aria-labelledby={`${title}-title`}
         />
         <CurrencySelector
           triggerRef={triggerRef}

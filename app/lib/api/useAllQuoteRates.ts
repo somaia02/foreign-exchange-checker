@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getError } from "../utils";
+import { getError, fetchData } from "../utils";
 
 interface dataItem {
   date: string;
@@ -14,15 +14,10 @@ export function useAllQuoteRates(base: string) {
 
   useEffect(() => {
     const controller = new AbortController();
-    async function fetchData() {
+    async function fetchRates() {
       try {
         const url = `https://api.frankfurter.dev/v2/rates/?base=${base}`;
-        const response = await fetch(url, { signal: controller.signal });
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.message);
-        }
-        const json = await response.json();
+        const json = await fetchData(url, controller.signal);
         const newRates = json.reduce(
           (acc: Record<string, number>, currency: dataItem) => {
             acc[currency.quote.toLowerCase()] = currency.rate;
@@ -33,13 +28,12 @@ export function useAllQuoteRates(base: string) {
         setRates(newRates);
       } catch (e) {
         if (getError(e, "name") === "AbortError") {
-          console.log("Fetch successfully aborted, ignoring error.");
           return;
         }
         setError(getError(e, "message"));
       }
     }
-    fetchData();
+    fetchRates();
 
     return () => {
       controller.abort();
